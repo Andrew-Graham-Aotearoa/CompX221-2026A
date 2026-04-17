@@ -4,6 +4,11 @@
 
 ---
 
+HEAD
+=======
+## Recommended Folder Structure (By Concept)
+
+c4a154bff9449bbf49782768dc651b033b9f0dab
 ```
 CompX221_26A/
 │
@@ -47,9 +52,12 @@ CompX221_26A/
 │   ├── Studio_04_Ex2  — CSV loading into Item objects
 │   └── Studio_04_Ex3  — CSV loading into Button objects
 │
+<<<<<<< HEAD
 ├── 08_Abstract_Spreadsheet/
 │   └── Studio_05_Ex1  — AbstractCell / TextCell / NumericCell (spreadsheet)
 │
+=======
+>>>>>>> c4a154bff9449bbf49782768dc651b033b9f0dab
 └── 07_Mouse_and_Interaction/
     ├── Studio_02_Ex3  — mousePressed check in draw loop
     ├── Studio_03_Ex2  — isClicked method, named buttons
@@ -252,6 +260,7 @@ CompX221_26A/
 
 ---
 
+<<<<<<< HEAD
 ### 📊 STUDIO 5 — Spreadsheet and Abstract Classes
 
 ---
@@ -265,6 +274,8 @@ CompX221_26A/
 
 ---
 
+=======
+>>>>>>> c4a154bff9449bbf49782768dc651b033b9f0dab
 ## Quick Concept Lookup
 
 | Concept | Where to find it |
@@ -290,8 +301,12 @@ CompX221_26A/
 | `keyPressed()` method | Studio_04 Ex1 |
 | `isClicked()` bounds check | Studio_03 Ex2, Studio_04 Ex3 |
 | `sq()` distance formula | Studio_04 Ex3 (CircleButton) |
+<<<<<<< HEAD
 | `redraw()` / `noLoop()` | Studio_05 Ex1 |
 | `nf()` number formatting | Studio_04 Ex2, Studio_05 Ex1 |
+=======
+| `nf()` number formatting | Studio_04 Ex2 (Weapon) |
+>>>>>>> c4a154bff9449bbf49782768dc651b033b9f0dab
 | `PImage` / image loading | Studio_01 Ex3 |
 | Recursion | Studio_01 Ex4 |
 | `frameRate()` | Studio_03 Ex4 |
