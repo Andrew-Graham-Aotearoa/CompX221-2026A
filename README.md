@@ -4,12 +4,6 @@
 
 ---
 
-HEAD
-=======
-## Recommended Folder Structure (By Concept)
-
-c4a154bff9449bbf49782768dc651b033b9f0dab
-```
 CompX221_26A/
 │
 ├── 01_Drawing_and_Basics/
@@ -260,8 +254,7 @@ CompX221_26A/
 
 ---
 
-<<<<<<< HEAD
-### 📊 STUDIO 5 — Spreadsheet and Abstract Classes
+ ### 📊 STUDIO 5 — Spreadsheet and Abstract Classes
 
 ---
 
@@ -274,8 +267,7 @@ CompX221_26A/
 
 ---
 
-=======
->>>>>>> c4a154bff9449bbf49782768dc651b033b9f0dab
+
 ## Quick Concept Lookup
 
 | Concept | Where to find it |
@@ -301,12 +293,9 @@ CompX221_26A/
 | `keyPressed()` method | Studio_04 Ex1 |
 | `isClicked()` bounds check | Studio_03 Ex2, Studio_04 Ex3 |
 | `sq()` distance formula | Studio_04 Ex3 (CircleButton) |
-<<<<<<< HEAD
 | `redraw()` / `noLoop()` | Studio_05 Ex1 |
 | `nf()` number formatting | Studio_04 Ex2, Studio_05 Ex1 |
-=======
 | `nf()` number formatting | Studio_04 Ex2 (Weapon) |
->>>>>>> c4a154bff9449bbf49782768dc651b033b9f0dab
 | `PImage` / image loading | Studio_01 Ex3 |
 | Recursion | Studio_01 Ex4 |
 | `frameRate()` | Studio_03 Ex4 |
