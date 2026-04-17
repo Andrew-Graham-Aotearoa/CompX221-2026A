@@ -1,6 +1,7 @@
 # CompX221 — Programming for Creative Industries
 ## Course File Index & Reference Guide
 **University of Waikato | 2026**
+```
 CompX221_26A/
 │
 ├── 01_Drawing_and_Basics/
@@ -248,7 +249,7 @@ CompX221_26A/
 
 ---
 
- ### 📊 STUDIO 5 — Spreadsheet and Abstract Classes
+### 📊 STUDIO 5 — Spreadsheet and Abstract Classes
 
 ---
 
@@ -289,7 +290,6 @@ CompX221_26A/
 | `sq()` distance formula | Studio_04 Ex3 (CircleButton) |
 | `redraw()` / `noLoop()` | Studio_05 Ex1 |
 | `nf()` number formatting | Studio_04 Ex2, Studio_05 Ex1 |
-| `nf()` number formatting | Studio_04 Ex2 (Weapon) |
 | `PImage` / image loading | Studio_01 Ex3 |
 | Recursion | Studio_01 Ex4 |
 | `frameRate()` | Studio_03 Ex4 |
