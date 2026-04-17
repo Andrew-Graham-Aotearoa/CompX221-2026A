@@ -1,9 +1,6 @@
 # CompX221 — Programming for Creative Industries
 ## Course File Index & Reference Guide
 **University of Waikato | 2026**
-
----
-
 CompX221_26A/
 │
 ├── 01_Drawing_and_Basics/
@@ -46,12 +43,9 @@ CompX221_26A/
 │   ├── Studio_04_Ex2  — CSV loading into Item objects
 │   └── Studio_04_Ex3  — CSV loading into Button objects
 │
-<<<<<<< HEAD
 ├── 08_Abstract_Spreadsheet/
 │   └── Studio_05_Ex1  — AbstractCell / TextCell / NumericCell (spreadsheet)
 │
-=======
->>>>>>> c4a154bff9449bbf49782768dc651b033b9f0dab
 └── 07_Mouse_and_Interaction/
     ├── Studio_02_Ex3  — mousePressed check in draw loop
     ├── Studio_03_Ex2  — isClicked method, named buttons
