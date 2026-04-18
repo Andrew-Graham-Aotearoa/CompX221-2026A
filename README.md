@@ -1,6 +1,9 @@
 # CompX221 — Programming for Creative Industries
 ## Course File Index & Reference Guide
 **University of Waikato | 2026**
+
+---
+
 ```
 CompX221_26A/
 │
@@ -44,8 +47,8 @@ CompX221_26A/
 │   ├── Studio_04_Ex2  — CSV loading into Item objects
 │   └── Studio_04_Ex3  — CSV loading into Button objects
 │
-├── 08_Abstract_Spreadsheet/
-│   └── Studio_05_Ex1  — AbstractCell / TextCell / NumericCell (spreadsheet)
+├── 09_Practice_Tests/
+│   └── Practice_Test_1_2022  — RainDrop / WaterCatcher (abstract, CSV, mouse)
 │
 └── 07_Mouse_and_Interaction/
     ├── Studio_02_Ex3  — mousePressed check in draw loop
@@ -249,20 +252,6 @@ CompX221_26A/
 
 ---
 
-### 📊 STUDIO 5 — Spreadsheet and Abstract Classes
-
----
-
-#### Studio_05 — EX1: AbstractCell / TextCell / NumericCell
-**Files:** `Studio_05_ex1/AbstractCell.pde`, `TextCell.pde`, `NumericCell.pde`, `SpreadSheetTemplate.pde`
-**Summary:** Abstract `AbstractCell` class with `PVector` position, cell dimensions and text size. `TextCell` displays a string value, `NumericCell` displays a float formatted with `nf()` to a specified number of decimal places. Cells loaded from a CSV file and stored in `ArrayList<AbstractCell>`. Font size increased or decreased with `+` and `-` keys, with `redraw()` used to refresh the canvas on demand alongside `noLoop()`.
-**Concepts:** abstract class, abstract methods, `extends`, `super()`, `PVector`, `nf()` number formatting, `loadStrings()`, CSV parsing, `Integer.parseInt()`, `Float.parseFloat()`, `noLoop()`, `redraw()`, `keyPressed()`
-**Key Methods:** `abstract void drawCell()`, `abstract void txtSize()`, `nf(float, left, right)`, `redraw()`, `noLoop()`, `loadStrings()`, `split()`
-**Inheritance Tree:** `AbstractCell` (abstract) → `TextCell`, `NumericCell`
-
----
-
-
 ## Quick Concept Lookup
 
 | Concept | Where to find it |
@@ -288,13 +277,26 @@ CompX221_26A/
 | `keyPressed()` method | Studio_04 Ex1 |
 | `isClicked()` bounds check | Studio_03 Ex2, Studio_04 Ex3 |
 | `sq()` distance formula | Studio_04 Ex3 (CircleButton) |
-| `redraw()` / `noLoop()` | Studio_05 Ex1 |
-| `nf()` number formatting | Studio_04 Ex2, Studio_05 Ex1 |
-| `PImage` / image loading | Studio_01 Ex3 |
+| `nf()` number formatting | Studio_04 Ex2 (Weapon) |
+| `random()` ArrayList access | Practice Test 1 2022 |
+| `mouseButton` LEFT/RIGHT | Practice Test 1 2022 |
 | Recursion | Studio_01 Ex4 |
 | `frameRate()` | Studio_03 Ex4 |
 | `frameCount` | Studio_04 Ex1 |
 
 ---
 
-*Last updated: March 2026 | Paper: DSIGN221-26A*
+### 🧪 PRACTICE TESTS
+
+---
+
+#### Practice Test 1 — 2022: RainDrop / WaterCatcher
+**Files:** `Practice_Test_1_2022/AbstractObject.pde`, `RainDrop.pde`, `WaterCatcher.pde`, `Practice_Test_1_2022.pde`
+**Summary:** Abstract `AbstractObject` class with `PVector` position and `color`. `RainDrop` is a circle that moves downward and grows. `WaterCatcher` is a rectangle that grows in width. Objects loaded from CSV into `ArrayList<AbstractObject>`. Left click adds a `WaterCatcher`, right click adds a `RainDrop`. A randomly selected object grows each frame using `random()` and `ArrayList.get()`.
+**Concepts:** abstract class, abstract methods, `extends`, `super()`, `PVector`, `color`, `mousePressed`, `mouseButton`, `LEFT`/`RIGHT`, `random()`, `ArrayList.get()`, CSV parsing, polymorphic ArrayList
+**Key Methods:** `abstract void drawObject()`, `abstract void moveObject(int amount)`, `abstract void growObject(int amount)`, `super.toString()`, `mouseButton`, `int(random(0, list.size()-1))`
+**Inheritance Tree:** `AbstractObject` (abstract) → `RainDrop`, `WaterCatcher`
+
+---
+
+*Last updated: April 2026 | Paper: DSIGN221-26A*
