@@ -47,8 +47,16 @@ CompX221_26A/
 │   ├── Studio_04_Ex2  — CSV loading into Item objects
 │   └── Studio_04_Ex3  — CSV loading into Button objects
 │
-├── 09_Practice_Tests/
-│   └── Practice_Test_1_2022  — RainDrop / WaterCatcher (abstract, CSV, mouse)
+├── 08_Abstract_Spreadsheet/
+│   └── Studio_05_Ex1  — AbstractCell / TextCell / NumericCell (spreadsheet)
+│
+├── 09_Composition/
+│   ├── Studio_06_Ex1  — Student / Address (composition, txt file loading)
+│   └── Studio_06_Ex3  — Profile / Address / ContactDetails (multi-composition, CSV)
+│
+├── 10_Practice_Tests/
+│   ├── Practice_Test_1_2022  — RainDrop / WaterCatcher (abstract, CSV, mouse)
+│   └── Practical_Test_1_2026  — GardenObject / Flower / Hedgehog (abstract, CSV, random grow)
 │
 └── 07_Mouse_and_Interaction/
     ├── Studio_02_Ex3  — mousePressed check in draw loop
@@ -252,6 +260,65 @@ CompX221_26A/
 
 ---
 
+---
+
+### 📊 STUDIO 5 — Spreadsheet and Abstract Classes
+
+---
+
+#### Studio_05 — EX1: AbstractCell / TextCell / NumericCell
+**Files:** `Studio_05_ex1/AbstractCell.pde`, `TextCell.pde`, `NumericCell.pde`, `SpreadSheetTemplate.pde`
+**Summary:** Abstract `AbstractCell` class with `PVector` position, cell dimensions and text size. `TextCell` displays a string value, `NumericCell` displays a float formatted with `nf()` to a specified number of decimal places. Cells loaded from a CSV file and stored in `ArrayList<AbstractCell>`. Font size increased or decreased with `+` and `-` keys, with `redraw()` used to refresh the canvas on demand alongside `noLoop()`.
+**Concepts:** abstract class, abstract methods, `extends`, `super()`, `PVector`, `nf()` number formatting, `loadStrings()`, CSV parsing, `Integer.parseInt()`, `Float.parseFloat()`, `noLoop()`, `redraw()`, `keyPressed()`
+**Key Methods:** `abstract void drawCell()`, `abstract void txtSize()`, `nf(float, left, right)`, `redraw()`, `noLoop()`, `loadStrings()`, `split()`
+**Inheritance Tree:** `AbstractCell` (abstract) → `TextCell`, `NumericCell`
+
+---
+
+### 🔧 STUDIO 6 — Composition
+
+---
+
+#### Studio_06 — EX1: Student / Address (Composition)
+**Files:** `Studio6_ex1_Template/Student.pde`, `Address.pde`, `Studio6_ex1_Template.pde`
+**Summary:** `Student` class contains an `Address` object as a field — demonstrating composition. Student data loaded from a `.txt` file using `loadStrings()` and `split()`. Methods on `Student` delegate to `Address` for suburb, house number and street name. Both `toString()` methods chain together for full output.
+**Concepts:** composition, object as field, `private Address _address`, delegation, `loadStrings()`, `parseInt()`, `toString()` chaining, getters/setters via composed object
+**Key Methods:** `getAddress()`, `getSuburb()`, `setHouseNum()`, `setStreetName()`, `toString()`
+**Composition:** `Student` has-a `Address`
+
+---
+
+#### Studio_06 — EX3: Profile / Address / ContactDetails (Multi-Composition)
+**Files:** `CompX221_26A_Studio_06_ex3/Profile.pde`, `Address.pde`, `ContactDetails.pde`, `CompX221_26A_Studio_06_ex3.pde`
+**Summary:** `Profile` class contains both an `Address` and a `ContactDetails` object. Profiles loaded from CSV and stored in `ArrayList<Profile>`. Demonstrates multi-level composition where `Profile` delegates to both composed objects for getters and `toString()`.
+**Concepts:** multi-composition, multiple object fields, CSV parsing, `ArrayList`, delegation to composed objects, `toString()` chaining
+**Key Methods:** `getEmail()`, `getProfileName()`, `toString()`, `loadStrings()`, `split()`
+**Composition:** `Profile` has-a `Address`, `Profile` has-a `ContactDetails`
+
+---
+
+### 🧪 PRACTICE TESTS
+
+---
+
+#### Practice Test 1 — 2022: RainDrop / WaterCatcher
+**Files:** `Practice_Test_1_2022/AbstractObject.pde`, `RainDrop.pde`, `WaterCatcher.pde`, `Practice_Test_1_2022.pde`
+**Summary:** Abstract `AbstractObject` class with `PVector` position and `color`. `RainDrop` is a circle that moves downward and grows. `WaterCatcher` is a rectangle that grows in width. Objects loaded from CSV into `ArrayList<AbstractObject>`. Left click adds a `WaterCatcher`, right click adds a `RainDrop`. A randomly selected object grows each frame.
+**Concepts:** abstract class, abstract methods, `extends`, `super()`, `PVector`, `color`, `mousePressed`, `mouseButton`, `LEFT`/`RIGHT`, `random()`, `ArrayList.get()`, CSV parsing, polymorphic ArrayList
+**Key Methods:** `abstract void drawObject()`, `abstract void moveObject(int amount)`, `abstract void growObject(int amount)`, `mouseButton`, `int(random(0, list.size()-1))`
+**Inheritance Tree:** `AbstractObject` (abstract) → `RainDrop`, `WaterCatcher`
+
+---
+
+#### Practical Test 1 — 2026: GardenObject / Flower / Hedgehog
+**Files:** `PracticalTest1/GardenObject.pde`, `Flower.pde`, `Hedgehog.pde`, `PracticalTest1.pde`
+**Summary:** Abstract `GardenObject` class with `PVector _center` and `color _objectColor`. `Flower` is a circle that grows. `Hedgehog` is a rectangle that moves randomly in four directions and grows. Objects loaded from CSV into `ArrayList<GardenObject>` based on column count. A randomly selected object grows each frame. Left click adds a `Flower`, right click adds a `Hedgehog`. `frameRate(5)` used to slow animation.
+**Concepts:** abstract class, abstract methods, `extends`, `super()`, `PVector`, `color`, `mousePressed`, `mouseButton`, `random()` for movement direction, `ArrayList.get()`, CSV parsing, polymorphic ArrayList, `frameRate()`, `isEmpty()`
+**Key Methods:** `abstract void drawObject()`, `abstract void moveObject(int moveAmount)`, `abstract void growObject(int growAmount)`, `mouseButton`, `int(random(0, objectList.size()-1))`, `frameRate()`
+**Inheritance Tree:** `GardenObject` (abstract) → `Flower`, `Hedgehog`
+
+---
+
 ## Quick Concept Lookup
 
 | Concept | Where to find it |
@@ -278,24 +345,15 @@ CompX221_26A/
 | `isClicked()` bounds check | Studio_03 Ex2, Studio_04 Ex3 |
 | `sq()` distance formula | Studio_04 Ex3 (CircleButton) |
 | `nf()` number formatting | Studio_04 Ex2 (Weapon) |
-| `random()` ArrayList access | Practice Test 1 2022 |
-| `mouseButton` LEFT/RIGHT | Practice Test 1 2022 |
+| `redraw()` / `noLoop()` | Studio_05 Ex1 |
+| `nf()` number formatting | Studio_04 Ex2, Studio_05 Ex1 |
+| Composition (has-a) | Studio_06 Ex1, Ex3 |
+| Multi-composition | Studio_06 Ex3 |
+| `random()` ArrayList access | Practice Test 1 2022, Practical Test 1 2026 |
+| `mouseButton` LEFT/RIGHT | Practice Test 1 2022, Practical Test 1 2026 |
+| `frameRate()` | Studio_03 Ex4, Practical Test 1 2026 |
 | Recursion | Studio_01 Ex4 |
-| `frameRate()` | Studio_03 Ex4 |
 | `frameCount` | Studio_04 Ex1 |
-
----
-
-### 🧪 PRACTICE TESTS
-
----
-
-#### Practice Test 1 — 2022: RainDrop / WaterCatcher
-**Files:** `Practice_Test_1_2022/AbstractObject.pde`, `RainDrop.pde`, `WaterCatcher.pde`, `Practice_Test_1_2022.pde`
-**Summary:** Abstract `AbstractObject` class with `PVector` position and `color`. `RainDrop` is a circle that moves downward and grows. `WaterCatcher` is a rectangle that grows in width. Objects loaded from CSV into `ArrayList<AbstractObject>`. Left click adds a `WaterCatcher`, right click adds a `RainDrop`. A randomly selected object grows each frame using `random()` and `ArrayList.get()`.
-**Concepts:** abstract class, abstract methods, `extends`, `super()`, `PVector`, `color`, `mousePressed`, `mouseButton`, `LEFT`/`RIGHT`, `random()`, `ArrayList.get()`, CSV parsing, polymorphic ArrayList
-**Key Methods:** `abstract void drawObject()`, `abstract void moveObject(int amount)`, `abstract void growObject(int amount)`, `super.toString()`, `mouseButton`, `int(random(0, list.size()-1))`
-**Inheritance Tree:** `AbstractObject` (abstract) → `RainDrop`, `WaterCatcher`
 
 ---
 
