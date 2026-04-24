@@ -1,0 +1,7 @@
+100,Bobba Fett,555,Te Huia Drive,Flagstaff,Hamilton
+101,Darth Vader,27,Knighton Road,Hillcrest,Hamilton
+102,Emporer Palpatine,23,Rosewood Drive,Dinsdale,Hamilton
+103,Obiwan Kenobi,67,Templar Crescent,Hillcrest,Hamilton
+104,Luke Skywalker,23,Jedi Temple Drive,Hillcrest,Hamilton
+105,Master Yoda,10,Swamp Road,Temple View,Hamilton
+106,Han Solo,23,Falcon Way,Flagstaff,Hamilton
