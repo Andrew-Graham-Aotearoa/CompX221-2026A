@@ -3,6 +3,8 @@ ArrayList<MarineSnow> marineSnowList;
 //Starting bacteriaLevel at OceanFloor
 int bacteriaLevel = 710;
 
+//BlackSmoker Declaration
+BlackSmoker b;
 
 void setup()
 {
@@ -10,13 +12,19 @@ void setup()
 
   //Seed MarineSnow
   marineSnowList = new ArrayList<MarineSnow>();
+  //Black Smoker object
+  b = new BlackSmoker(700,580);
+  
 }
 
 
 void draw()
 {
   background(0);
-
+  
+  //BlackSmoker / Draw
+    b.drawObject();
+    
   //MarineSnow
   if (frameCount %30 == 0)
   {
@@ -34,12 +42,14 @@ void draw()
       println(marineSnowList.get(i).getPosition().y);
     }
   }
+  //Simulation End Condition
   if (bacteriaLevel <= 236)
     {
       fill(#f5f5f5);
       text("Bacteria Overpopulation!", width/2, height/2, 120);
       noLoop();
     }  
+    //bacteriaLevel Visual Display
   fill(#39ff14);
     rect(180, bacteriaLevel - 20, 20, 710 - bacteriaLevel);
 }

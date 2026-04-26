@@ -4,7 +4,7 @@ class MarineSnow extends Organism
   private PImage _bacteria;
   private Boolean _isSnow;
   private float _speed;
-  private final int OCEANFLOOR= 710;
+  private final int OCEANFLOOR = 710;
   public MarineSnow(int x, int y)
   {
     super(x, y);
