@@ -24,16 +24,29 @@ class MarineSnow extends Organism
     } else
     {
       image(_bacteria, _position.x, _position.y, 25, 25);
-      modify();
+      if (_position.y>= OCEANFLOOR)
+      {
+        modify();
+      }
     }
   }
 
   public void modify()
   {
-    _isSnow = false;
+    println("modify called"+ " " + _isSnow);
+
+    if (_isSnow == false)
+    {
+      return;
+    } else if (_isSnow == true)
+    {
+
+      //decrease y-axis level to the Top of the Black Smoker
+      bacteriaLevel -= 20;
+     // _position.y = bacteriaLevel;
+      _isSnow = false;
+    }
   }
-
-
 
   public void moveObject()
   {
@@ -47,5 +60,15 @@ class MarineSnow extends Organism
         modify();
       }
     }
+  }
+
+  public Boolean isSnow()
+  {
+    return _isSnow;
+  }
+
+  public PVector getPosition()
+  {
+    return _position;
   }
 }
