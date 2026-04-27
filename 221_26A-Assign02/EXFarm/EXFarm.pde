@@ -1,7 +1,11 @@
 //ArrayList for MarineSnow
 ArrayList<MarineSnow> marineSnowList;
-//Starting bacteriaLevel at OceanFloor
+
+//bacteriaLevel counter start
 int bacteriaLevel = 710;
+
+//ArrayList for TubeWorms
+ArrayList<TubeWorm> tubeWormList;
 
 //BlackSmoker Declaration
 BlackSmoker b;
@@ -12,19 +16,28 @@ void setup()
 
   //Seed MarineSnow
   marineSnowList = new ArrayList<MarineSnow>();
+
   //Black Smoker object
-  b = new BlackSmoker(700,580);
+  b = new BlackSmoker(700, 580);
   
+  //Seed TubeWorms
+  tubeWormList = new ArrayList<TubeWorm>();
+  //tubeworm objects to start
+  for (int i = 0; i < 6; i++)
+  {
+    tubeWormList.add
+      (new TubeWorm((int)random(578, 804), (int)random(677, 698)));
+  }
 }
 
 
 void draw()
 {
   background(0);
-  
+
   //BlackSmoker / Draw
-    b.drawObject();
-    
+  b.drawObject();
+
   //MarineSnow
   if (frameCount %30 == 0)
   {
@@ -36,7 +49,7 @@ void draw()
   {
     marineSnowList.get(i).drawObject();
     marineSnowList.get(i).moveObject();
-    
+
     if (marineSnowList.get(i).isSnow() == false)
     {
       println(marineSnowList.get(i).getPosition().y);
@@ -44,19 +57,23 @@ void draw()
   }
   //Simulation End Condition
   if (bacteriaLevel <= 236)
-    {
-      fill(#f5f5f5);
-      text("Bacteria Overpopulation!", width/2, height/2, 120);
-      noLoop();
-    }  
-    //bacteriaLevel Visual Display
+  {
+    fill(#f5f5f5);
+    textSize(80);
+    text("Bacteria Overpopulation!", width/4, height/2);
+    noLoop();
+  }
+  //bacteriaLevel Visual Display
   fill(#39ff14);
-    rect(180, bacteriaLevel - 20, 20, 710 - bacteriaLevel);
-}
+  rect(180, bacteriaLevel - 20, 20, 710 - bacteriaLevel);
 
-//testing for each that draws marine snow
-//for (MarineSnow s : marineSnowList)
-//{
-//  s.drawObject();
-//  s.moveObject();
-//}
+
+  //Tubeworm Display
+  for (int i = tubeWormList.size()-1; i >=0; i--)
+  {
+    tubeWormList.get(i).drawObject();
+  }
+
+  //display mouse position
+  println("Mouse position: " + mouseX + ", " + mouseY);
+}

@@ -40,10 +40,9 @@ class MarineSnow extends Organism
       return;
     } else if (_isSnow == true)
     {
-
-      //decrease y-axis level to the Top of the Black Smoker
+      //decrease y-axis level to the Top of the Black Smoker/
+      //set to bacteria
       bacteriaLevel -= 20;
-     // _position.y = bacteriaLevel;
       _isSnow = false;
     }
   }
@@ -66,8 +65,13 @@ class MarineSnow extends Organism
   {
     return _isSnow;
   }
+  
+  public void setEaten()
+  {
+   _isSnow = true; 
+  }
 
-  public PVector getPosition()
+  public PVector getSnowPosition()
   {
     return _position;
   }
