@@ -23,10 +23,10 @@ void setup()
   //Seed TubeWorms
   tubeWormList = new ArrayList<TubeWorm>();
   //tubeworm objects to start
-  for (int i = 0; i < 6; i++)
+  for (int i = 0; i < 20; i++)
   {
     tubeWormList.add
-      (new TubeWorm((int)random(578, 804), (int)random(677, 698)));
+      (new TubeWorm((int)random(321, 994), (int)random(677, 698)));
   }
 }
 
@@ -56,7 +56,7 @@ void draw()
     }
   }
   //Simulation End Condition
-  if (bacteriaLevel <= 236)
+  if (bacteriaLevel <= 235)
   {
     fill(#f5f5f5);
     textSize(80);
@@ -72,6 +72,8 @@ void draw()
   for (int i = tubeWormList.size()-1; i >=0; i--)
   {
     tubeWormList.get(i).drawObject();
+    tubeWormList.get(i).eatSnow();
+    tubeWormList.get(i).update();
   }
 
   //display mouse position

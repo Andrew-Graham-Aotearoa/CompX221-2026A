@@ -28,27 +28,36 @@ class TubeWorm extends Organism
   {
     for (int i = marineSnowList.size()-1; i >=0; i--)
     {
-      dist(getSnowPostion(),_position.x, _position.y);
       //check distance between tubeworm and snow
+      float d =
+        dist(marineSnowList.get(i).getPosition().x,
+        marineSnowList.get(i).getPosition().y, _position.x, _position.y);
 
       //if within 40px call snowconsumed()
-      //Increment snow comsumed
-
-      //if snow consumed reaches 5
-      if (_snowConsumed == 5)
+      if (d < 40 && marineSnowList.get(i).isSnow() == true)
       {
-        //add a new tubeworm to the list
-       tubeWormList.add
-       (new TubeWorm((int)(_position.x)+(int)random(-40, 40),(int)_position.y));
-        //set snow consumed to 0
-        _snowConsumed = 0;
+        //set snow consumed
+        marineSnowList.get(i).setEaten();
+        //decrement marinesnowlist
+        marineSnowList.remove(i);
+        //Increment snow consumed
+        _snowConsumed += 1;
       }
     }
-  }
-
-    public void drawObject()
+    //if snow consumed reaches 5
+    if (_snowConsumed == 5)
     {
-      imageMode(CENTER);
-      image(_tubeWorm, _position.x, _position.y, 35, 35);
+      //add a new tubeworm to the list
+      tubeWormList.add
+        (new TubeWorm((int)(_position.x)+(int)random(-40, 40), (int)_position.y));
+      //set snow consumed to 0
+      _snowConsumed = 0;
     }
   }
+
+  public void drawObject()
+  {
+    imageMode(CENTER);
+    image(_tubeWorm, _position.x, _position.y, 35, 35);
+  }
+}

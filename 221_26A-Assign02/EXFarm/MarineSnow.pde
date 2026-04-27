@@ -71,7 +71,7 @@ class MarineSnow extends Organism
    _isSnow = true; 
   }
 
-  public PVector getSnowPosition()
+  public PVector getPosition()
   {
     return _position;
   }
