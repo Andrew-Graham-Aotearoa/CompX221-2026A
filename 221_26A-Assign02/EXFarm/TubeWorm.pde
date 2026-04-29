@@ -49,7 +49,7 @@ class TubeWorm extends Organism
     {
       //add a new tubeworm to the list
       tubeWormList.add
-        (new TubeWorm((int)(_position.x)+(int)random(-40, 40), (int)_position.y));
+        (new TubeWorm((int)(_position.x)+(int)random(-45, 45), (int)_position.y));
       //set snow consumed to 0
       _snowConsumed = 0;
     }
@@ -58,6 +58,6 @@ class TubeWorm extends Organism
   public void drawObject()
   {
     imageMode(CENTER);
-    image(_tubeWorm, _position.x, _position.y, 35, 35);
+    image(_tubeWorm, _position.x, _position.y, 40, 40);
   }
 }

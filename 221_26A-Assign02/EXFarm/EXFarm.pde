@@ -10,23 +10,36 @@ ArrayList<TubeWorm> tubeWormList;
 //BlackSmoker Declaration
 BlackSmoker b;
 
+//HoffCrab ArrayList
+ArrayList<HoffCrab> hoffCrabList;
+
 void setup()
 {
   size(1280, 720);
 
+  //Seed HoffCrabs
+  hoffCrabList = new ArrayList<HoffCrab>();
+  //Hoff Crabs to Start
+  for (int i = 0; i < 15; i++)
+  {
+   hoffCrabList.add
+      (new HoffCrab((int)random(213, 1270), (int)random(677, 698)));
+  }
+  
+  
   //Seed MarineSnow
   marineSnowList = new ArrayList<MarineSnow>();
-
+  
   //Black Smoker object
   b = new BlackSmoker(700, 580);
-  
+
   //Seed TubeWorms
   tubeWormList = new ArrayList<TubeWorm>();
   //tubeworm objects to start
-  for (int i = 0; i < 20; i++)
+  for (int i = 0; i < 6; i++)
   {
     tubeWormList.add
-      (new TubeWorm((int)random(321, 994), (int)random(677, 698)));
+      (new TubeWorm((int)random(213, 1270), (int)random(677, 698)));
   }
 }
 
@@ -34,6 +47,8 @@ void setup()
 void draw()
 {
   background(0);
+
+  
 
   //BlackSmoker / Draw
   b.drawObject();
@@ -76,6 +91,16 @@ void draw()
     tubeWormList.get(i).update();
   }
 
+//Hoff Crab Display
+for (int i = hoffCrabList.size()-1; i >=0; i--)
+  {
+    hoffCrabList.get(i).drawObject();    
+    hoffCrabList.get(i).eatBacteria();
+    //hoffCrabList.get(i).update();
+    hoffCrabList.get(i).moveObject();
+
+  
+  }
   //display mouse position
   println("Mouse position: " + mouseX + ", " + mouseY);
 }
