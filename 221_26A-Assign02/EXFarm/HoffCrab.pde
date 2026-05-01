@@ -10,6 +10,7 @@ class HoffCrab extends Organism
     _hoffCrab = loadImage("HoffCrab.png");
     _isAlive = true;
     _bacteriaConsumed = 0;
+    
   }
 
   public Boolean isAlive()
@@ -19,11 +20,12 @@ class HoffCrab extends Organism
   
    public void update()
   {
-    if (b.getTempAt(_position)< 3 || b.getTempAt(_position)> 30)
+    if (b.getTempAt(_position)< -100 || b.getTempAt(_position)> 30)
     {
       _isAlive = false;
     }
   }
+  
 
   public void moveObject()
   {
@@ -34,19 +36,20 @@ class HoffCrab extends Organism
         int num = int(random(1, 5));
         if (num == 1)
         {
-          _position.y += 2;
+          _position.y += 1;
         }
         if (num == 2)
         {
-          _position.y -= 2;
+          _position.y -= 1;
         }
         if (num == 3)
         {
-          _position.x += 5;
+          _position.x += 6;
+          
         }
         if (num == 4)
         {
-          _position.x -= 5;
+          _position.x -= 6;
         }
       }
     }
@@ -89,11 +92,3 @@ class HoffCrab extends Organism
   }
  
 }
-
-
-//pushMatrix();
-          //translate(_position.x, _position.y);
-          //rotate(-HALF_PI);
-          //imageMode(CENTER);
-          //loadImage("HoffCrab.png");
-          //popMatrix();

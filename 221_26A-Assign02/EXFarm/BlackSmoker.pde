@@ -13,7 +13,7 @@ class BlackSmoker extends Organism
   public int getTempAt(PVector location)
   {
     float d = dist(location.x, location.y, _position.x, _position.y);
-    return (int)map( d, 0, 1200, MAXTEMP, MINTEMP);
+    return (int)map( d, 0, 280, MAXTEMP, MINTEMP);
   }
 
 public void setTemp(int temp)
