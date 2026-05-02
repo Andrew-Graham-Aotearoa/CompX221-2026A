@@ -44,12 +44,12 @@ class TubeWorm extends Organism
         _snowConsumed += 1;
       }
     }
-    //if snow consumed reaches 5
-    if (_snowConsumed == 5)
+    //if snow consumed increases
+    if (_snowConsumed == 2)
     {
       //add a new tubeworm to the list
       tubeWormList.add
-        (new TubeWorm((int)(_position.x)+(int)random(-45, 45), (int)_position.y));
+        (new TubeWorm((int)(_position.x)+(int)random(-70, 70), ((int)_position.y)+(int)random(-20, 20)));
       //set snow consumed to 0
       _snowConsumed = 0;
     }

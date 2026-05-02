@@ -3,6 +3,8 @@ class HoffCrab extends Organism
   private PImage _hoffCrab;
   private Boolean _isAlive;
   private int _bacteriaConsumed;
+  private int _vitality;
+  private int _stepSize;
 
   public HoffCrab(int x, int y)
   {
@@ -10,27 +12,46 @@ class HoffCrab extends Organism
     _hoffCrab = loadImage("HoffCrab.png");
     _isAlive = true;
     _bacteriaConsumed = 0;
-    
+    _vitality = 10;
+    _stepSize = 6;
   }
 
   public Boolean isAlive()
   {
     return _isAlive;
   }
-  
-   public void update()
+
+  public void update()
   {
-    if (b.getTempAt(_position)< -100 || b.getTempAt(_position)> 30)
+    if (b.getTempAt(_position)> 30)
+    {
+      _vitality -= 1;
+    }
+    if (frameCount % 300 == 0)
+    {
+      _vitality -= 1;
+    }
+    if (_vitality <= 0)
     {
       _isAlive = false;
     }
+    println("Crab vitality: " + _vitality + " temp: " + b.getTempAt(_position));
   }
-  
+
 
   public void moveObject()
   {
     if (_isAlive == true)
     {
+      if (_vitality < 5)
+      {
+        _stepSize = 3;
+        huntBacteria();
+      } else
+      {
+        _stepSize = 6;
+      }
+
       if (frameCount %30 == 0)
       {
         int num = int(random(1, 5));
@@ -44,16 +65,17 @@ class HoffCrab extends Organism
         }
         if (num == 3)
         {
-          _position.x += 6;
-          
+          _position.x += _stepSize;
         }
         if (num == 4)
         {
-          _position.x -= 6;
+          _position.x -= _stepSize;
         }
       }
     }
+    constrain(_position.y, 677, 720);
   }
+
 
   public void eatBacteria()
   {
@@ -71,6 +93,8 @@ class HoffCrab extends Organism
         //Increment snow consumed
         _bacteriaConsumed += 1;
         bacteriaLevel += 20;
+        _vitality += 1;
+        _vitality = constrain(_vitality, 0, 10);
       }
     }
     //if snow consumed reaches 5
@@ -84,11 +108,45 @@ class HoffCrab extends Organism
     }
   }
 
+  public void huntBacteria()
+  {
+    float closestDist = Float.MAX_VALUE;
+
+    PVector target = null;
+
+    // loop through marineSnowList
+    for (int i = marineSnowList.size()-1; i >=0; i--)
+    {
+      if (marineSnowList.get(i).isSnow() == false)
+      {
+        float d =
+          dist(marineSnowList.get(i).getPosition().x,
+          marineSnowList.get(i).getPosition().y, _position.x, constrain(_position.y, 677, 720));
+
+        if (d < closestDist)
+        {
+          closestDist = d;
+          target = marineSnowList.get(i).getPosition();
+        }
+      }
+    }
+
+    if (target != null)
+    {
+      if (target.x > _position.x)
+      {
+        _position.x += _stepSize;
+      } else
+      {
+        _position.x -= _stepSize;
+      }
+    }
+  }
+
 
   public void drawObject()
   {
     imageMode(CENTER);
     image(_hoffCrab, _position.x, _position.y, 40, 40);
   }
- 
 }

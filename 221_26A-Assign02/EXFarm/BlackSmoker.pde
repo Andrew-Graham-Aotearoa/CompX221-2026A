@@ -1,30 +1,44 @@
 class BlackSmoker extends Organism
 {
   private PImage _blackSmoker;
-  private int _temp = 90;
   private final int MAXTEMP = 453;
   private final int MINTEMP = 3;
+  private float _size = 150;
+  private float _heatRadius;
   public BlackSmoker(int x, int y)
   {
     super(x, y);
     _blackSmoker = loadImage("blackSmoker.png");
+    _heatRadius = _size * 0.9;
+ 
+    
   }
 
   public int getTempAt(PVector location)
-  {
-    float d = dist(location.x, location.y, _position.x, _position.y);
-    return (int)map( d, 0, 280, MAXTEMP, MINTEMP);
+  { 
+    float d = dist(location.x, location.y, _position.x, _position.y - (_size/2));
+    if (d < _heatRadius)
+    {
+      //constrain the temp between max and min
+    return (int)constrain(map(d, 0, _heatRadius, MAXTEMP, MINTEMP), MINTEMP, MAXTEMP);
+    }
+    else return MINTEMP;
   }
 
-public void setTemp(int temp)
+public void setSize(float size)
 {
- _temp = temp;  
+ _size = size;
+ _heatRadius = size * 0.9;
 }
 
+public float getHeatRadius()
+{
+ return _heatRadius; 
+}
 
   public void drawObject()
   {
     imageMode(CENTER);
-    image(_blackSmoker, _position.x, _position.y, 300, 300);
+    image(_blackSmoker, _position.x, _position.y - (_size/2), _size, _size);
   }
 }

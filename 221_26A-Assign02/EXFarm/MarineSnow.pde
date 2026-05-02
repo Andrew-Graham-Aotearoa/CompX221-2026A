@@ -33,7 +33,7 @@ class MarineSnow extends Organism
 
   public void modify()
   {
-    println("modify called"+ " " + _isSnow);
+    //println("modify called"+ " " + _isSnow);
 
     if (_isSnow == false)
     {
