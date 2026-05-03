@@ -6,19 +6,23 @@ ControlP5 cp5;
 ArrayList<MarineSnow> marineSnowList;
 
 //bacteriaLevel counter start point
-int bacteriaLevel = 710;
+int bacteriaLevel;
 
 //Marine Snow Density
-float density = 5;
+float density;
 
 //ArrayList for TubeWorms
 ArrayList<TubeWorm> tubeWormList;
+//TubeWorm Spawn Quantity
+int tubeWormSpawn = 10;
 
 //BlackSmoker Declaration
 BlackSmoker b;
 
 //HoffCrab ArrayList
 ArrayList<HoffCrab> hoffCrabList;
+//Hoff Crab Spawn Quantity
+int hoffSpawn = 20;
 
 // Background and Gradient variables
 color top = color(9, 92, 142); // Mid Blue
@@ -30,9 +34,14 @@ int wSim = 1072;
 int simX= 213;
 int simY = 128;
 
+//Pause Button
+Boolean isPaused = false;
+
+//Speed Control Radio Selection
+RadioButton r;
 
 //
-//**********************************************SETUP*********************************************************
+//**********************************************UX SETUP*********************************************************
 //
 void setup()
 {
@@ -65,16 +74,44 @@ void setup()
   cp5.getController("snowDensity").getValueLabel().align(ControlP5.LEFT, ControlP5.BOTTOM_OUTSIDE).setPaddingX(0);
   cp5.getController("snowDensity").getCaptionLabel().align(ControlP5.RIGHT, ControlP5.BOTTOM_OUTSIDE).setPaddingX(0);
 
-//
-//******************************************Organisms*******************************************************************
-//
+  //Pause Button
+  cp5.addButton("pause")
+    .setPosition(25, 650)
+    .setSize(150, 25)
+    ;
+
+  //Reset Button
+  cp5.addButton("reset")
+    .setPosition(25, 680)
+    .setSize(150, 25)
+    ;
+
+
+  //Radio Button
+  r = cp5.addRadioButton("speedControl")
+    .setPosition(25, 550)
+    .setSize(25, 25)
+    .setColorForeground(color(120))
+    .setColorActive(color(255))
+    .setColorLabel(color(255))
+    .setItemsPerRow(1)
+    .setSpacingColumn(50)
+    .addItem("0.5x", 0)
+    .addItem("1x", 1)
+    .addItem("2x", 2)
+    .activate("1x")
+    ;
+
+  //
+  //******************************************Organisms*(Setup)**********************************************************
+  //
   //Black Smoker object
   b = new BlackSmoker(700, 720);
 
   //Seed HoffCrabs
   hoffCrabList = new ArrayList<HoffCrab>();
   //Hoff Crabs to Start
-  for (int i = 0; i < 5; i++)
+  for (int i = 0; i < hoffSpawn; i++)
   {
     hoffCrabList.add
       (new HoffCrab((int)random(213, 1270), (int)random(677, 698)));
@@ -82,11 +119,15 @@ void setup()
 
   //Seed MarineSnow
   marineSnowList = new ArrayList<MarineSnow>();
+  //Record Bacteria Level
+  bacteriaLevel = 710;
+  //Set Snow Density
+  density = 2;
 
   //Seed TubeWorms
   tubeWormList = new ArrayList<TubeWorm>();
   //tubeworm objects to start
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < tubeWormSpawn; i++)
   {
     tubeWormList.add
       (new TubeWorm((int)random(700- b.getHeatRadius(), 700+ b.getHeatRadius()), (int)random(660, 700)));
@@ -142,7 +183,7 @@ void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
     marineSnowList.get(i).drawObject();
     marineSnowList.get(i).moveObject();
 
-//debugging marine snow to Bacteria change
+    //debugging marine snow to Bacteria change
     //if (marineSnowList.get(i).isSnow() == false)
     //{
     //  println("Bacteria Created" + " " +
@@ -185,6 +226,7 @@ void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
       hoffCrabList.remove(i);
     }
   }
+  
   //User Interface area (top and Sidebar)
   noStroke();
   fill(#095c8e);
@@ -193,14 +235,20 @@ void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
 
   //bacteriaLevel Visual Display
   fill(#39ff14);
-  rect(180, bacteriaLevel - 20, 20, 710 - bacteriaLevel);
+  rect(185, bacteriaLevel - 5, 20, 710 - bacteriaLevel);
+
+   //Speed Control Label
+   textSize(20);
+   fill(#FFFFFF);
+   text("Speed Control:", 25, 540);
 
   //display mouse position
   println("Mouse position: " + mouseX + ", " + mouseY);
-  
-  
 }
 
+//
+//********************************************* UX Callback Methods **************************************************************
+//
 //callback for Black Smoker Controls
 void smokerSize(float size)
 {
@@ -211,4 +259,36 @@ void smokerSize(float size)
 void snowDensity(float amount)
 {
   density = (int)amount;
+}
+
+//callback for Pause
+void pause()
+{
+  println("a button event: "+isPaused);
+
+  if (isPaused == true)
+  {
+    loop();
+    isPaused = false;
+  } else
+  {
+    noLoop();
+    isPaused = true;
+  }
+}
+
+//Callback for Reset
+void reset()
+{
+  isPaused = false;
+  loop();
+  setup();
+}
+
+//callback for SpeedControl
+void speedControl(float value)
+{
+  if (value == 0) frameRate(30);
+  if (value == 1) frameRate(60);
+  if (value == 2) frameRate(120);
 }

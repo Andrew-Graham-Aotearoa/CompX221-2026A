@@ -73,7 +73,8 @@ class HoffCrab extends Organism
         }
       }
     }
-    constrain(_position.y, 677, 720);
+    _position.y = constrain(_position.y, 670, 700);
+    _position.x = constrain(_position.x, 235, 1250);
   }
 
 
@@ -97,12 +98,12 @@ class HoffCrab extends Organism
         _vitality = constrain(_vitality, 0, 10);
       }
     }
-    //if snow consumed reaches 5
-    if (_bacteriaConsumed == 15)
+    //Reproduce + Consumption
+    if (_bacteriaConsumed == 4)
     {
       //add a new HoffCrab to the list
       hoffCrabList.add
-        (new HoffCrab((int)(_position.x)+(int)random(-145, 145), (int)_position.y));
+        (new HoffCrab((int)(_position.x)+(int)random(-145, 145), (int)constrain(_position.y, 670, 700)));
       //set bacteria consumed to 0
       _bacteriaConsumed = 0;
     }
@@ -121,7 +122,7 @@ class HoffCrab extends Organism
       {
         float d =
           dist(marineSnowList.get(i).getPosition().x,
-          marineSnowList.get(i).getPosition().y, _position.x, constrain(_position.y, 677, 720));
+          marineSnowList.get(i).getPosition().y, _position.x, constrain(_position.y, 670, 700));
 
         if (d < closestDist)
         {
