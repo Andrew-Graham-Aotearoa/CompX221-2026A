@@ -13,7 +13,7 @@ class TubeWorm extends Organism
 
   public void update()
   {
-    if (b.getTempAt(_position)< 90 || b.getTempAt(_position)> 400)
+    if (b.getTempAt(_position)< 90 || b.getTempAt(_position)> 420)
     {
       _isAlive = false;
     }

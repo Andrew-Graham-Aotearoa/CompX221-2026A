@@ -19,12 +19,21 @@ int tubeWormSpawn = 10;
 //BlackSmoker Declaration
 BlackSmoker b;
 
+//Eruption Rock Declaration
+EruptionRock e;
+
 //HoffCrab ArrayList
 ArrayList<HoffCrab> hoffCrabList;
 //Hoff Crab Spawn Quantity
 int hoffSpawn = 20;
 
-// Background and Gradient variables
+//VulcanOctopus ArrayList
+ArrayList<VulcanOctopus> vulcanOctopusList;
+//Spawn Quantity
+int octopusSpawn = 6;
+
+// ****************************Background and Gradient variables*****************************
+
 color top = color(9, 92, 142); // Mid Blue
 color bottom = color(14, 48, 72); // Deep Blue
 //Gradient area is defined outside of the UI area.
@@ -33,6 +42,8 @@ int hSim = 600;
 int wSim = 1072;
 int simX= 213;
 int simY = 128;
+
+//*****************************UX Variables**************************************************
 
 //Pause Button
 Boolean isPaused = false;
@@ -103,10 +114,12 @@ void setup()
     ;
 
   //
-  //******************************************Organisms*(Setup)**********************************************************
+  //******************************************Organisms (Setup)**********************************************************
   //
   //Black Smoker object
   b = new BlackSmoker(700, 720);
+  
+  e = new EruptionRock(700, 720);
 
   //Seed HoffCrabs
   hoffCrabList = new ArrayList<HoffCrab>();
@@ -115,6 +128,15 @@ void setup()
   {
     hoffCrabList.add
       (new HoffCrab((int)random(213, 1270), (int)random(677, 698)));
+  }
+
+ //Seed vulcanOctopus
+  vulcanOctopusList = new ArrayList<VulcanOctopus>();
+  //objects to start
+  for (int i = 0; i < octopusSpawn; i++)
+  {
+    vulcanOctopusList.add
+      (new VulcanOctopus((int)random(700- b.getHeatRadius(), 700+ b.getHeatRadius()), (int)random(660, 700)));
   }
 
   //Seed MarineSnow
@@ -200,7 +222,20 @@ void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
     text("Bacteria Overpopulation!", width/4, height/2);
     noLoop();
   }
-
+  
+ //VulcanOctopus Display
+  for (int i = vulcanOctopusList.size()-1; i >=0; i--)
+  {
+    vulcanOctopusList.get(i).drawObject();
+    vulcanOctopusList.get(i).eatCrabs();
+    vulcanOctopusList.get(i).moveObject();
+    vulcanOctopusList.get(i).update();
+    
+    if (vulcanOctopusList.get(i).isAlive() == false)
+    {
+      vulcanOctopusList.remove(i);
+    }
+  }
 
   //Tubeworm Display
   for (int i = tubeWormList.size()-1; i >=0; i--)
@@ -227,13 +262,13 @@ void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
     }
   }
   
-  //User Interface area (top and Sidebar)
+  //User Interface Display Area (top and Sidebar)
   noStroke();
   fill(#095c8e);
   rect(0, 0, width, 128);
   rect(0, 128, 213, 600);
 
-  //bacteriaLevel Visual Display
+  //bacteriaLevel Visual Display (Sidebar)
   fill(#39ff14);
   rect(185, bacteriaLevel - 5, 20, 710 - bacteriaLevel);
 
@@ -247,7 +282,7 @@ void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
 }
 
 //
-//********************************************* UX Callback Methods **************************************************************
+//********************************************* Callback Methods **************************************************************
 //
 //callback for Black Smoker Controls
 void smokerSize(float size)

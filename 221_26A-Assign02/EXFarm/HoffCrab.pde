@@ -35,7 +35,7 @@ class HoffCrab extends Organism
     {
       _isAlive = false;
     }
-    println("Crab vitality: " + _vitality + " temp: " + b.getTempAt(_position));
+    //println("Crab vitality: " + _vitality + " temp: " + b.getTempAt(_position));
   }
 
 
@@ -109,6 +109,7 @@ class HoffCrab extends Organism
     }
   }
 
+
   public void huntBacteria()
   {
     float closestDist = Float.MAX_VALUE;
@@ -118,16 +119,20 @@ class HoffCrab extends Organism
     // loop through marineSnowList
     for (int i = marineSnowList.size()-1; i >=0; i--)
     {
-      if (marineSnowList.get(i).isSnow() == false)
+      //if temp is survivable, Hunt Bacteria
+      if (b.getTempAt(marineSnowList.get(i).getPosition()) < 40)
       {
-        float d =
-          dist(marineSnowList.get(i).getPosition().x,
-          marineSnowList.get(i).getPosition().y, _position.x, constrain(_position.y, 670, 700));
-
-        if (d < closestDist)
+        if (marineSnowList.get(i).isSnow() == false)
         {
-          closestDist = d;
-          target = marineSnowList.get(i).getPosition();
+          float d =
+            dist(marineSnowList.get(i).getPosition().x,
+            marineSnowList.get(i).getPosition().y, _position.x, constrain(_position.y, 670, 700));
+
+          if (d < closestDist)
+          {
+            closestDist = d;
+            target = marineSnowList.get(i).getPosition();
+          }
         }
       }
     }
@@ -144,6 +149,10 @@ class HoffCrab extends Organism
     }
   }
 
+  public PVector getPosition()
+  {
+    return _position;
+  }
 
   public void drawObject()
   {
