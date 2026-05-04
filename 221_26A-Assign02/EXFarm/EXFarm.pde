@@ -19,8 +19,8 @@ int tubeWormSpawn = 10;
 //BlackSmoker Declaration
 BlackSmoker b;
 
-//Eruption Rock Declaration
-EruptionRock e;
+//Eruption Rock ArrayList
+ArrayList<EruptionRock> eruptionRockList;
 
 //HoffCrab ArrayList
 ArrayList<HoffCrab> hoffCrabList;
@@ -97,7 +97,6 @@ void setup()
     .setSize(150, 25)
     ;
 
-
   //Radio Button
   r = cp5.addRadioButton("speedControl")
     .setPosition(25, 550)
@@ -113,13 +112,21 @@ void setup()
     .activate("1x")
     ;
 
+  //Eruption Button
+  cp5.addButton("eruption")
+    .setPosition(25, 480)
+    .setSize(150, 25)
+    ;
+
   //
   //******************************************Organisms (Setup)**********************************************************
   //
-  //Black Smoker object
+  //Initalise Black Smoker object
   b = new BlackSmoker(700, 720);
-  
-  e = new EruptionRock(700, 720);
+
+  //Initialise Eruption RockList
+  eruptionRockList = new ArrayList<EruptionRock>();
+
 
   //Seed HoffCrabs
   hoffCrabList = new ArrayList<HoffCrab>();
@@ -130,7 +137,7 @@ void setup()
       (new HoffCrab((int)random(213, 1270), (int)random(677, 698)));
   }
 
- //Seed vulcanOctopus
+  //Seed vulcanOctopus
   vulcanOctopusList = new ArrayList<VulcanOctopus>();
   //objects to start
   for (int i = 0; i < octopusSpawn; i++)
@@ -179,14 +186,27 @@ void draw()
   text("EXTREMOPHILE FARM", marginLeft, 74);
 }
 
-//Background Gradient
-void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
+  //Background Gradient
+  void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
   for (int i = y; i <= y+h; i++) {
     float inter = map(i, y, y+h, 0, 1);
     color c = lerpColor(cTop, cBm, inter);
     stroke(c);
     line(x, i, x+w, i);
   }
+
+  //EruptionRock/ Draw
+  //Note: Loop style iterates from end of the array
+  for (int i = eruptionRockList.size()-1; i >=0; i--)
+  {
+    eruptionRockList.get(i).drawObject();
+    eruptionRockList.get(i).moveObject();
+    if (eruptionRockList.get(i).isVisible() == false)
+    {
+     eruptionRockList.remove(i); 
+    }
+  }
+
 
   //BlackSmoker / Draw
   b.drawObject();
@@ -222,15 +242,15 @@ void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
     text("Bacteria Overpopulation!", width/4, height/2);
     noLoop();
   }
-  
- //VulcanOctopus Display
+
+  //VulcanOctopus Display
   for (int i = vulcanOctopusList.size()-1; i >=0; i--)
   {
     vulcanOctopusList.get(i).drawObject();
     vulcanOctopusList.get(i).eatCrabs();
     vulcanOctopusList.get(i).moveObject();
     vulcanOctopusList.get(i).update();
-    
+
     if (vulcanOctopusList.get(i).isAlive() == false)
     {
       vulcanOctopusList.remove(i);
@@ -261,7 +281,7 @@ void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
       hoffCrabList.remove(i);
     }
   }
-  
+
   //User Interface Display Area (top and Sidebar)
   noStroke();
   fill(#095c8e);
@@ -272,10 +292,10 @@ void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
   fill(#39ff14);
   rect(185, bacteriaLevel - 5, 20, 710 - bacteriaLevel);
 
-   //Speed Control Label
-   textSize(20);
-   fill(#FFFFFF);
-   text("Speed Control:", 25, 540);
+  //Speed Control Label
+  textSize(20);
+  fill(#FFFFFF);
+  text("Speed Control:", 25, 540);
 
   //display mouse position
   println("Mouse position: " + mouseX + ", " + mouseY);
@@ -326,4 +346,13 @@ void speedControl(float value)
   if (value == 0) frameRate(30);
   if (value == 1) frameRate(60);
   if (value == 2) frameRate(120);
+}
+
+//callback for Eruption
+void eruption()
+{
+  for (int i = 0; i < 50; i++)
+  {
+    eruptionRockList.add(new EruptionRock(700, 690));
+  }
 }
