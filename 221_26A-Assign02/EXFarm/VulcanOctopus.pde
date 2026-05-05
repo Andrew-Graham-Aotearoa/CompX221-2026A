@@ -144,7 +144,10 @@ class VulcanOctopus extends Organism
     }
   }
 
-
+  public PVector getPosition()
+  {
+    return _position;
+  }
 
 
 

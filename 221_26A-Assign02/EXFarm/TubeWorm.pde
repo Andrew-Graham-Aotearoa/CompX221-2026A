@@ -54,6 +54,11 @@ class TubeWorm extends Organism
       _snowConsumed = 0;
     }
   }
+  
+   public PVector getPosition()
+  {
+    return _position;
+  }
 
   public void drawObject()
   {

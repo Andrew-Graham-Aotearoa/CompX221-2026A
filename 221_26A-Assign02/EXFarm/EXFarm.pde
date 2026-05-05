@@ -201,6 +201,7 @@ void draw()
   {
     eruptionRockList.get(i).drawObject();
     eruptionRockList.get(i).moveObject();
+    eruptionRockList.get(i).checkCollision();
     if (eruptionRockList.get(i).isVisible() == false)
     {
      eruptionRockList.remove(i); 
@@ -353,6 +354,6 @@ void eruption()
 {
   for (int i = 0; i < 50; i++)
   {
-    eruptionRockList.add(new EruptionRock(700, 690));
+    eruptionRockList.add(new EruptionRock(700, 600));
   }
 }

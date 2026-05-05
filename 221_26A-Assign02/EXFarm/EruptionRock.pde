@@ -6,6 +6,7 @@ class EruptionRock
   private boolean _isVisible;
   private final int OCEANFLOOR = 710;
   private PImage _rock;
+  private final int KILL_RADIUS = 10;
 
   public EruptionRock(int x, int y)
   {
@@ -37,11 +38,54 @@ class EruptionRock
     return _position;
   }
 
+//Collision Event checker aka Mass Extinction
   public void checkCollision()
   {
-    // loop through each organism list
-    // check distance
-    // set _isAlive = false if hit
+    //Rock v Crab
+    for (int i = hoffCrabList.size()-1; i >=0; i--)
+    {
+      //check distance between Rock and Crab
+      float d =
+        dist(hoffCrabList.get(i).getPosition().x,
+        hoffCrabList.get(i).getPosition().y, _position.x, _position.y);
+
+      //if within KILL_RADIUS remove()
+      if (d < KILL_RADIUS)
+      {
+        hoffCrabList.remove(i);
+        _isVisible = false;
+      }
+    }
+    //Rock v Vulcanoctopus
+     for (int i = vulcanOctopusList.size()-1; i >=0; i--)
+    {
+      //check distance between Rock and Octopus
+      float d =
+        dist(vulcanOctopusList.get(i).getPosition().x,
+        vulcanOctopusList.get(i).getPosition().y, _position.x, _position.y);
+
+      //if within KILL_RADIUS remove()
+      if (d < KILL_RADIUS)
+      {
+        vulcanOctopusList.remove(i);
+        _isVisible = false;
+      }
+    }
+    //Rock v TubeWorm
+    for (int i = tubeWormList.size()-1; i >=0; i--)
+    {
+      //check distance between Rock and Crab
+      float d =
+        dist(tubeWormList.get(i).getPosition().x,
+        tubeWormList.get(i).getPosition().y, _position.x, _position.y);
+
+      //if within KILL_RADIUS remove()
+      if (d < KILL_RADIUS)
+      {
+        tubeWormList.remove(i);
+        _isVisible = false;
+      }
+    }
   }
 
   public void drawObject()
