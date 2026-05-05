@@ -43,6 +43,10 @@ int wSim = 1072;
 int simX= 213;
 int simY = 128;
 
+//Header and TopBar Title
+  int marginLeft;
+  PFont h1;
+
 //*****************************UX Variables**************************************************
 
 //Pause Button
@@ -50,6 +54,11 @@ Boolean isPaused = false;
 
 //Speed Control Radio Selection
 RadioButton r;
+
+//Organism Icons for UX Display Sidebar
+PImage tubeWormIcon;
+PImage hoffCrabIcon;
+PImage vulcanOctopusIcon;
 
 //
 //**********************************************UX SETUP*********************************************************
@@ -61,8 +70,14 @@ void setup()
   //Add cp5 to Sketch
   cp5 = new ControlP5(this);
 
+  //*********************************************Top-Bar UX**********************************************************
+
+  //Text Setup
+  h1 = loadFont("Chicago12.1-48.vlw");
+  marginLeft= 30;
+ 
   // add BlackSmoker slider
-  cp5.addSlider("smokerSize")
+    cp5.addSlider("smokerSize")
     .setLabel("Black Smoker Temperature")
     .setPosition(850, 25)
     .setSize(315, 25)
@@ -85,21 +100,24 @@ void setup()
   cp5.getController("snowDensity").getValueLabel().align(ControlP5.LEFT, ControlP5.BOTTOM_OUTSIDE).setPaddingX(0);
   cp5.getController("snowDensity").getCaptionLabel().align(ControlP5.RIGHT, ControlP5.BOTTOM_OUTSIDE).setPaddingX(0);
 
+//
+//********************************************* SideBar UX SETUP ******************************************************************
+//
   //Pause Button
   cp5.addButton("pause")
-    .setPosition(25, 650)
+    .setPosition(25, 500)
     .setSize(150, 25)
     ;
 
   //Reset Button
   cp5.addButton("reset")
-    .setPosition(25, 680)
+    .setPosition(25, 550)
     .setSize(150, 25)
     ;
 
   //Radio Button
   r = cp5.addRadioButton("speedControl")
-    .setPosition(25, 550)
+    .setPosition(25, 330)
     .setSize(25, 25)
     .setColorForeground(color(120))
     .setColorActive(color(255))
@@ -114,8 +132,36 @@ void setup()
 
   //Eruption Button
   cp5.addButton("eruption")
-    .setPosition(25, 480)
+    .setColorBackground(color(#dc143c))
+    .setColorForeground(color(#ff4500))
+    .setPosition(25, 450)
     .setSize(150, 25)
+    ;
+
+  //Organisms SideBar UX Setup
+  tubeWormIcon = loadImage("tubeworm.png");
+  hoffCrabIcon = loadImage("HoffCrab.png");
+  vulcanOctopusIcon = loadImage("vulcanOctopus.png");
+
+  //Add TubeWorm Button
+  cp5.addButton("addTubeWorm")
+    .setLabel("+")
+    .setPosition(115, 170)
+    .setSize(25, 25)
+    ;
+
+  //Add HoffCrab Button
+  cp5.addButton("addHoffCrab")
+    .setLabel("+")
+    .setPosition(115, 200)
+    .setSize(25, 25)
+    ;
+
+  //Add vulcanOctopus Button
+  cp5.addButton("addvulcanOctopus")
+    .setLabel("+")
+    .setPosition(115, 230)
+    .setSize(25, 25)
     ;
 
   //
@@ -176,18 +222,11 @@ void draw()
   stroke(#000000);
   strokeWeight(5);
   rect( simX, simY, wSim, hSim );
-
-  //Header and TopBar Title
-  int marginLeft = 36;
-  fill(#000000);
-  PFont h1;
-  h1 = loadFont("Chicago12.1-48.vlw");
-  textFont(h1, 62);
-  text("EXTREMOPHILE FARM", marginLeft, 74);
 }
 
-  //Background Gradient
-  void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
+
+//Background Gradient Simulation Area
+void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
   for (int i = y; i <= y+h; i++) {
     float inter = map(i, y, y+h, 0, 1);
     color c = lerpColor(cTop, cBm, inter);
@@ -204,7 +243,7 @@ void draw()
     eruptionRockList.get(i).checkCollision();
     if (eruptionRockList.get(i).isVisible() == false)
     {
-     eruptionRockList.remove(i); 
+      eruptionRockList.remove(i);
     }
   }
 
@@ -283,7 +322,11 @@ void draw()
     }
   }
 
-  //User Interface Display Area (top and Sidebar)
+  //
+  //***********************User Interface Display Area (Sidebar)*****************************************************
+  //
+  
+  
   noStroke();
   fill(#095c8e);
   rect(0, 0, width, 128);
@@ -292,12 +335,32 @@ void draw()
   //bacteriaLevel Visual Display (Sidebar)
   fill(#39ff14);
   rect(185, bacteriaLevel - 5, 20, 710 - bacteriaLevel);
+  textSize(20);
+  fill(#FFFFFF);
+  //textAlign(alignY,BOTTOM);
+  text("BACTERIA LEVEL", marginLeft, 705);
 
   //Speed Control Label
   textSize(20);
   fill(#FFFFFF);
-  text("Speed Control:", 25, 540);
+  text("SPEED CONTROL", 25, 310);
 
+  //Creature Display and Counter UX SideBar
+  text("POPULATION", marginLeft, 150);
+
+  image(tubeWormIcon, 38, 180, 25, 25);
+  text(tubeWormList.size(), 68, 190);
+
+  image(hoffCrabIcon, 38, 210, 25, 25);
+  text(hoffCrabList.size(), 68, 220);
+
+  image(vulcanOctopusIcon, 38, 240, 25, 25);
+  text(vulcanOctopusList.size(), 68, 250);
+
+  textFont(h1, 62);
+  fill(#000000);
+  text("EXTREMOPHILE FARM", marginLeft, 74);
+  
   //display mouse position
   println("Mouse position: " + mouseX + ", " + mouseY);
 }
@@ -356,4 +419,21 @@ void eruption()
   {
     eruptionRockList.add(new EruptionRock(700, 600));
   }
+}
+
+//callbacks for Organism Add
+void addTubeWorm()
+{
+  tubeWormList.add
+    (new TubeWorm((int)random(700- b.getHeatRadius(), 700+ b.getHeatRadius()), (int)random(660, 700)));
+}
+void addHoffCrab()
+{
+  hoffCrabList.add
+    (new HoffCrab((int)random(213, 1270), (int)random(677, 698)));
+}
+void addvulcanOctopus()
+{
+  vulcanOctopusList.add
+    (new VulcanOctopus((int)random(700- b.getHeatRadius(), 700+ b.getHeatRadius()), (int)random(660, 700)));
 }

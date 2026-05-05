@@ -49,7 +49,7 @@ class TubeWorm extends Organism
     {
       //add a new tubeworm to the list
       tubeWormList.add
-        (new TubeWorm((int)(_position.x)+(int)random(-70, 70), ((int)_position.y)+(int)random(-20, 20)));
+        (new TubeWorm((int)(_position.x)+(int)random(-70, 70), ((int)_position.y)+(int)random(-15, 15)));
       //set snow consumed to 0
       _snowConsumed = 0;
     }
