@@ -8,6 +8,6 @@ abstract class Organism
  }
  
  public abstract void drawObject();
- //public abstract void moveObject(int amount);
+
  
 }

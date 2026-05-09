@@ -19,7 +19,7 @@ class BlackSmoker extends Organism
     float d = dist(location.x, location.y, _position.x, _position.y - (_size/2));
     if (d < _heatRadius)
     {
-      //constrain the temp between max and min
+      //constrain the temp between max and min, +  set temp outside this area to MINTEMP
     return (int)constrain(map(d, 0, _heatRadius, MAXTEMP, MINTEMP), MINTEMP, MAXTEMP);
     }
     else return MINTEMP;

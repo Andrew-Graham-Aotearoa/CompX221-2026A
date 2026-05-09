@@ -27,6 +27,7 @@ class HoffCrab extends Organism
     {
       _vitality -= 1;
     }
+    //Every 5 Seconds over 30, 1 x Vitality lost
     if (frameCount % 300 == 0)
     {
       _vitality -= 1;

@@ -250,8 +250,7 @@ void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
 
   //BlackSmoker / Draw
   b.drawObject();
-  //display temp
-  println("Temp at Mouse is:"+ " " + b.getTempAt(new PVector(mouseX, mouseY)));
+  
 
   //MarineSnow Seeding
   if (frameCount %(int)(60/ density) == 0)
@@ -362,7 +361,10 @@ void setGradient(int x, int y, float w, float h, color cTop, color cBm) {
   text("EXTREMOPHILE FARM", marginLeft, 74);
   
   //display mouse position
-  println("Mouse position: " + mouseX + ", " + mouseY);
+  //println("Mouse position: " + mouseX + ", " + mouseY);
+  //display temp and Mouse Postion 
+  println("Mouse position: " + mouseX + ", " + mouseY + " " +
+            "Temp is:"+ " " + b.getTempAt(new PVector(mouseX, mouseY)));
 }
 
 //

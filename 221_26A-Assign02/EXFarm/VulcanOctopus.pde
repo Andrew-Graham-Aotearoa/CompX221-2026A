@@ -23,6 +23,7 @@ class VulcanOctopus extends Organism
 
   public void update()
   {
+    //Conditions for Hunger and Death
     if (b.getTempAt(_position)> 300 || b.getTempAt(_position)< 45)
     {
       _vitality -= 1;
@@ -35,7 +36,7 @@ class VulcanOctopus extends Organism
     {
       _isAlive = false;
     }
-    println("Vulcanoctopus vitality: " + _vitality + " temp: " + b.getTempAt(_position));
+    //println("Vulcanoctopus vitality: " + _vitality + " temp: " + b.getTempAt(_position));
   }
 
 
