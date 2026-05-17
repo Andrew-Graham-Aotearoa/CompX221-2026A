@@ -47,22 +47,21 @@ CompX221_26A/
 │   ├── Studio_04_Ex2  — CSV loading into Item objects
 │   └── Studio_04_Ex3  — CSV loading into Button objects
 │
-├── 08_Abstract_Spreadsheet/
-│   └── Studio_05_Ex1  — AbstractCell / TextCell / NumericCell (spreadsheet)
+├── 07_Mouse_and_Interaction/
+│   ├── Studio_02_Ex3  — mousePressed check in draw loop
+│   ├── Studio_03_Ex2  — isClicked method, named buttons
+│   ├── Studio_04_Ex3  — mousePressed method, instanceof
+│   └── Studio_04_Ex1  — keyPressed, UP/DOWN arrow movement
 │
-├── 09_Composition/
-│   ├── Studio_06_Ex1  — Student / Address (composition, txt file loading)
-│   └── Studio_06_Ex3  — Profile / Address / ContactDetails (multi-composition, CSV)
+├── 08_Composition_and_Animation/
+│   ├── Studio_07_Ex1  — Garden / Plant (aggregation)
+│   └── Studio_07_Ex2  — TeddyBear / Wave (composition + animation)
 │
-├── 10_Practice_Tests/
-│   ├── Practice_Test_1_2022  — RainDrop / WaterCatcher (abstract, CSV, mouse)
-│   └── Practical_Test_1_2026  — GardenObject / Flower / Hedgehog (abstract, CSV, random grow)
+├── 09_Abstract_Garden/
+│   └── Studio_08_Ex1  — GardenObject / Plant / Bench (abstract + select/move)
 │
-└── 07_Mouse_and_Interaction/
-    ├── Studio_02_Ex3  — mousePressed check in draw loop
-    ├── Studio_03_Ex2  — isClicked method, named buttons
-    ├── Studio_04_Ex3  — mousePressed method, instanceof
-    └── Studio_04_Ex1  — keyPressed, UP/DOWN arrow movement
+└── 10_Assignment/
+    └── ExtremophileFarm  — Ecosystem simulation (ControlP5, multiple organisms)
 ```
 
 ---
@@ -260,62 +259,49 @@ CompX221_26A/
 
 ---
 
----
-
-### 📊 STUDIO 5 — Spreadsheet and Abstract Classes
+### 🌿 STUDIO 7 — Composition and Animation
 
 ---
 
-#### Studio_05 — EX1: AbstractCell / TextCell / NumericCell
-**Files:** `Studio_05_ex1/AbstractCell.pde`, `TextCell.pde`, `NumericCell.pde`, `SpreadSheetTemplate.pde`
-**Summary:** Abstract `AbstractCell` class with `PVector` position, cell dimensions and text size. `TextCell` displays a string value, `NumericCell` displays a float formatted with `nf()` to a specified number of decimal places. Cells loaded from a CSV file and stored in `ArrayList<AbstractCell>`. Font size increased or decreased with `+` and `-` keys, with `redraw()` used to refresh the canvas on demand alongside `noLoop()`.
-**Concepts:** abstract class, abstract methods, `extends`, `super()`, `PVector`, `nf()` number formatting, `loadStrings()`, CSV parsing, `Integer.parseInt()`, `Float.parseFloat()`, `noLoop()`, `redraw()`, `keyPressed()`
-**Key Methods:** `abstract void drawCell()`, `abstract void txtSize()`, `nf(float, left, right)`, `redraw()`, `noLoop()`, `loadStrings()`, `split()`
-**Inheritance Tree:** `AbstractCell` (abstract) → `TextCell`, `NumericCell`
+#### Studio_07 — EX1: Garden / Plant (Aggregation)
+**Files:** `Studio_07_ex1/Garden.pde`, `Plant.pde`, `Studio_07_ex1.pde`
+**Summary:** A standalone `Plant` class (no inheritance) stored in an `ArrayList` inside a `Garden` class. Plants are added at mouse click position with a random size. `growGarden()` randomly grows one plant per frame using an index guard.
+**Concepts:** aggregation, composition via ArrayList field, `isEmpty()` guard, `random()` index, `mousePressed`
+**Key Methods:** `addPlant()`, `drawGarden()`, `growGarden()`, `growPlant()`, `_plantList.size()`
 
 ---
 
-### 🔧 STUDIO 6 — Composition
+#### Studio_07 — EX2: TeddyBear / Wave (Composition + Animation)
+**Files:** `Studio_07_ex2/TeddyBear.pde`, `Wave.pde`, `Studio_07_ex2.pde`
+**Summary:** A `TeddyBear` class that loads a `PImage` and bounces across the screen, reversing direction and stepping down a row when it hits the canvas edge. A `Wave` class aggregates multiple `TeddyBear` objects via an ArrayList and is responsible for drawing them as a group.
+**Concepts:** composition, `PImage`, direction reversal, `getWidth()`, `imageMode(CENTER)`, ArrayList of objects
+**Key Methods:** `drawBear()`, `moveBear(int amount)`, `getWidth()`, `drawWave()`
 
 ---
 
-#### Studio_06 — EX1: Student / Address (Composition)
-**Files:** `Studio6_ex1_Template/Student.pde`, `Address.pde`, `Studio6_ex1_Template.pde`
-**Summary:** `Student` class contains an `Address` object as a field — demonstrating composition. Student data loaded from a `.txt` file using `loadStrings()` and `split()`. Methods on `Student` delegate to `Address` for suburb, house number and street name. Both `toString()` methods chain together for full output.
-**Concepts:** composition, object as field, `private Address _address`, delegation, `loadStrings()`, `parseInt()`, `toString()` chaining, getters/setters via composed object
-**Key Methods:** `getAddress()`, `getSuburb()`, `setHouseNum()`, `setStreetName()`, `toString()`
-**Composition:** `Student` has-a `Address`
+### 🌳 STUDIO 8 — Abstract Garden
 
 ---
 
-#### Studio_06 — EX3: Profile / Address / ContactDetails (Multi-Composition)
-**Files:** `CompX221_26A_Studio_06_ex3/Profile.pde`, `Address.pde`, `ContactDetails.pde`, `CompX221_26A_Studio_06_ex3.pde`
-**Summary:** `Profile` class contains both an `Address` and a `ContactDetails` object. Profiles loaded from CSV and stored in `ArrayList<Profile>`. Demonstrates multi-level composition where `Profile` delegates to both composed objects for getters and `toString()`.
-**Concepts:** multi-composition, multiple object fields, CSV parsing, `ArrayList`, delegation to composed objects, `toString()` chaining
-**Key Methods:** `getEmail()`, `getProfileName()`, `toString()`, `loadStrings()`, `split()`
-**Composition:** `Profile` has-a `Address`, `Profile` has-a `ContactDetails`
+#### Studio_08 — EX1: GardenObject / Plant / Bench
+**Files:** `Studio_08_ex1/GardenObject.pde`, `Plant.pde`, `Bench.pde`, `Garden.pde`, `Studio_08_ex1.pde`
+**Summary:** Abstract `GardenObject` class with shared fields (`_centre`, `_objColor`, `_isSelected`, `_selectedColor`) and abstract methods `drawObject()` and `isClicked()`. `Plant` uses distance formula for click detection and draws as an ellipse. `Bench` uses bounds checking and draws as a rectangle. `Garden` aggregates both types in a polymorphic `ArrayList<GardenObject>`. Click to select an object (highlights red), click again to move it. Key 'g' grows all plants using `instanceof` casting.
+**Concepts:** abstract class, polymorphic ArrayList, `instanceof`, casting, aggregation, `_isSelected` toggle, `moveObject()`, `deselectObject()`, `pow()` distance formula, bounds checking
+**Key Methods:** `handleClick()`, `growGarden()`, `addPlant()`, `addBench()`, `isClicked()`, `moveObject()`, `deselectObject()`, `instanceof`, `(Plant) g`
+**Inheritance Tree:** `GardenObject` (abstract) → `Plant`, `Bench`
 
 ---
 
-### 🧪 PRACTICE TESTS
+### 🦀 ASSIGNMENT 2 — Extremophile Farm
 
 ---
 
-#### Practice Test 1 — 2022: RainDrop / WaterCatcher
-**Files:** `Practice_Test_1_2022/AbstractObject.pde`, `RainDrop.pde`, `WaterCatcher.pde`, `Practice_Test_1_2022.pde`
-**Summary:** Abstract `AbstractObject` class with `PVector` position and `color`. `RainDrop` is a circle that moves downward and grows. `WaterCatcher` is a rectangle that grows in width. Objects loaded from CSV into `ArrayList<AbstractObject>`. Left click adds a `WaterCatcher`, right click adds a `RainDrop`. A randomly selected object grows each frame.
-**Concepts:** abstract class, abstract methods, `extends`, `super()`, `PVector`, `color`, `mousePressed`, `mouseButton`, `LEFT`/`RIGHT`, `random()`, `ArrayList.get()`, CSV parsing, polymorphic ArrayList
-**Key Methods:** `abstract void drawObject()`, `abstract void moveObject(int amount)`, `abstract void growObject(int amount)`, `mouseButton`, `int(random(0, list.size()-1))`
-**Inheritance Tree:** `AbstractObject` (abstract) → `RainDrop`, `WaterCatcher`
-
----
-
-#### Practical Test 1 — 2026: GardenObject / Flower / Hedgehog
-**Files:** `PracticalTest1/GardenObject.pde`, `Flower.pde`, `Hedgehog.pde`, `PracticalTest1.pde`
-**Summary:** Abstract `GardenObject` class with `PVector _center` and `color _objectColor`. `Flower` is a circle that grows. `Hedgehog` is a rectangle that moves randomly in four directions and grows. Objects loaded from CSV into `ArrayList<GardenObject>` based on column count. A randomly selected object grows each frame. Left click adds a `Flower`, right click adds a `Hedgehog`. `frameRate(5)` used to slow animation.
-**Concepts:** abstract class, abstract methods, `extends`, `super()`, `PVector`, `color`, `mousePressed`, `mouseButton`, `random()` for movement direction, `ArrayList.get()`, CSV parsing, polymorphic ArrayList, `frameRate()`, `isEmpty()`
-**Key Methods:** `abstract void drawObject()`, `abstract void moveObject(int moveAmount)`, `abstract void growObject(int growAmount)`, `mouseButton`, `int(random(0, objectList.size()-1))`, `frameRate()`
-**Inheritance Tree:** `GardenObject` (abstract) → `Flower`, `Hedgehog`
+#### ExtremophileFarm — Ecosystem Simulation
+**Files:** `EXFarm.pde`, `Organism.pde`, `BlackSmoker.pde`, `MarineSnow.pde`, `TubeWorm.pde`, `HoffCrab.pde`, `VulcanOctopus.pde`, `EruptionRock.pde`
+**Summary:** A real-time ecosystem simulation set at a deep-sea hydrothermal vent. `Organism` is an abstract base class with `_position` and abstract `drawObject()`. `BlackSmoker` generates a heat gradient via `getTempAt()`. `MarineSnow` falls and converts to bacteria on the ocean floor. `TubeWorm`, `HoffCrab`, and `VulcanOctopus` each have vitality, hunting, eating, reproduction, and death logic. `EruptionRock` projectiles are spawned on eruption and check collision against all organism lists. UI built with ControlP5 (sliders, radio buttons, buttons). Gradient background drawn with `lerpColor()`.
+**Concepts:** abstract class, inheritance, polymorphism, `instanceof`, `ArrayList` with reverse-index removal, `frameCount`, `constrain()`, `map()`, `dist()`, `lerpColor()`, ControlP5 library, `PImage`, callback methods
+**Key Methods:** `getTempAt(PVector)`, `eatSnow()`, `eatBacteria()`, `eatCrabs()`, `huntBacteria()`, `huntCrabs()`, `checkCollision()`, `setGradient()`, `lerpColor()`, `constrain()`, `map()`
+**Inheritance Tree:** `Organism` (abstract) → `BlackSmoker`, `MarineSnow`, `TubeWorm`, `HoffCrab`, `VulcanOctopus`
 
 ---
 
@@ -345,16 +331,19 @@ CompX221_26A/
 | `isClicked()` bounds check | Studio_03 Ex2, Studio_04 Ex3 |
 | `sq()` distance formula | Studio_04 Ex3 (CircleButton) |
 | `nf()` number formatting | Studio_04 Ex2 (Weapon) |
-| `redraw()` / `noLoop()` | Studio_05 Ex1 |
-| `nf()` number formatting | Studio_04 Ex2, Studio_05 Ex1 |
-| Composition (has-a) | Studio_06 Ex1, Ex3 |
-| Multi-composition | Studio_06 Ex3 |
-| `random()` ArrayList access | Practice Test 1 2022, Practical Test 1 2026 |
-| `mouseButton` LEFT/RIGHT | Practice Test 1 2022, Practical Test 1 2026 |
-| `frameRate()` | Studio_03 Ex4, Practical Test 1 2026 |
+| `PImage` / image loading | Studio_01 Ex3 |
 | Recursion | Studio_01 Ex4 |
-| `frameCount` | Studio_04 Ex1 |
+| `frameRate()` | Studio_03 Ex4 |
+| `frameCount` | Studio_04 Ex1, Studio_08 Ex1 |
+| Aggregation / composition | Studio_07 Ex1, Ex2 |
+| `instanceof` + casting | Studio_04 Ex3, Studio_08 Ex1 |
+| Select / move object pattern | Studio_08 Ex1 |
+| `_isSelected` toggle | Studio_08 Ex1 |
+| `lerpColor()` gradient | Assignment 2 |
+| ControlP5 library | Assignment 2 |
+| Vitality / death loop pattern | Assignment 2 |
+| Reverse-index ArrayList removal | Assignment 2 |
 
 ---
 
-*Last updated: April 2026 | Paper: DSIGN221-26A*
+*Last updated: May 2026 | Paper: DSIGN221-26A*
