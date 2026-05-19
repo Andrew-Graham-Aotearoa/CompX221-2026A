@@ -6,7 +6,6 @@ void setup()
   size(800, 600);
 
   g = new Garden();
-  
 }
 
 void draw()
@@ -18,21 +17,21 @@ void draw()
 
 void mousePressed()
 {
-  g.handleClick(mouseX, mouseY); 
+  g.handleClick(mouseX, mouseY);
 }
 
 void keyPressed()
 {
-  if(key == 'b')
+  if (key == 'b')
   {
-    g.addBench(mouseX,mouseY,(int)random(50, 100), 10, #744813); 
+    g.addBench(mouseX, mouseY, (int)random(50, 100), 10, #744813);
+  } 
+  else if (key == 'p')
+  {
+    g.addPlant(mouseX, mouseY, (int)random(20, 80), #1C7E4E);
   }
-  else if(key == 'p')
+  else if (key == 'g')
   {
-    g.addPlant(mouseX,mouseY, (int)random(20,80), #1C7E4E);
-  }
-  else if(key == 'g')
-  {
-    g.growGarden(); 
+    g.growGarden();
   }
 }

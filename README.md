@@ -257,6 +257,39 @@ CompX221_26A/
 **Key Methods:** `abstract void drawButton()`, `abstract boolean isClicked(int x, int y)`, `sq()`, `instanceof`, `color(r,g,b)`, `mousePressed()`
 **Inheritance Tree:** `Button` (abstract) → `RectangleButton`, `CircleButton`
 
+### 🌱 STUDIO 5 — Abstract Classes (Practical Test 1 Preparation)
+
+---
+
+#### Studio_05 — EX1: GardenObject / Flower / Hedgehog
+**Files:** `Studio_05_ex1/GardenObject.pde`, `Flower.pde`, `Hedgehog.pde`, `Studio_05_ex1.pde`
+**Summary:** Abstract `GardenObject` class with `PVector` position and colour. `Flower` and `Hedgehog` extend it with their own `drawObject()` and `growObject()` methods. Objects loaded from CSV into `ArrayList<GardenObject>`. A randomly selected object grows every 30 frames.
+**Concepts:** abstract class, abstract methods, `extends`, `super()`, `PVector`, `color`, `frameCount % 30`, `isEmpty()` guard, polymorphic ArrayList, CSV parsing
+**Key Methods:** `abstract void drawObject()`, `abstract void growObject()`, `frameCount % 30`, `int(random(0, list.size()-1))`, `isEmpty()`
+**Inheritance Tree:** `GardenObject` (abstract) → `Flower`, `Hedgehog`
+
+---
+
+### 📋 STUDIO 6 — Composition and File I/O
+
+---
+
+#### Studio_06 — EX1: Profile / SocialMediaProfile
+**Files:** `Studio_06_ex1/Profile.pde`, `SocialMediaProfile.pde`, `Studio_06_ex1.pde`
+**Summary:** Abstract `Profile` class with name and age. `SocialMediaProfile` extends it adding platform and follower count. Demonstrates `super.toString()` chaining and polymorphic ArrayList.
+**Concepts:** abstract class, inheritance, `super.toString()`, `protected` fields, polymorphic ArrayList
+**Key Methods:** `super.toString()`, `getFollowers()`, `toString()`
+**Inheritance Tree:** `Profile` (abstract) → `SocialMediaProfile`
+
+---
+
+#### Studio_06 — EX3: Scores Spreadsheet (TextCell / NumericCell)
+**Files:** `Studio_06_ex3/AbstractCell.pde`, `TextCell.pde`, `NumericCell.pde`, `Studio_06_ex3.pde`
+**Summary:** Abstract `AbstractCell` class with position, dimensions and text size. `TextCell` stores a String value, `NumericCell` stores a float with decimal places formatted using `nf()`. Both loaded from CSV into `ArrayList<AbstractCell>`. Font size changes on keypress via `txtSize()`.
+**Concepts:** abstract class, `nf()` formatting, `PVector`, `textSize()`, `keyPressed`, polymorphic ArrayList, CSV parsing
+**Key Methods:** `abstract void drawCell()`, `abstract void txtSize()`, `nf(float, left, right)`, `textAlign(CENTER)`, `rectMode(CORNER)`
+**Inheritance Tree:** `AbstractCell` (abstract) → `TextCell`, `NumericCell`
+
 ---
 
 ### 🌿 STUDIO 7 — Composition and Animation
@@ -279,7 +312,7 @@ CompX221_26A/
 
 ---
 
-### 🌳 STUDIO 8 — Abstract Garden
+### 🌳 STUDIO 8 — Abstract Garden Polymorphism, instanceof, and Spreadsheet Composition
 
 ---
 
@@ -289,6 +322,27 @@ CompX221_26A/
 **Concepts:** abstract class, polymorphic ArrayList, `instanceof`, casting, aggregation, `_isSelected` toggle, `moveObject()`, `deselectObject()`, `pow()` distance formula, bounds checking
 **Key Methods:** `handleClick()`, `growGarden()`, `addPlant()`, `addBench()`, `isClicked()`, `moveObject()`, `deselectObject()`, `instanceof`, `(Plant) g`
 **Inheritance Tree:** `GardenObject` (abstract) → `Plant`, `Bench`
+
+---
+
+#### Studio_08 — EX2: SpreadSheet / AbstractCell / TextCell / NumericCell
+**Files:** `Studio_08_ex2/SpreadSheet.pde`, `AbstractCell.pde`, `TextCell.pde`, `NumericCell.pde`, `Studio_08_ex2.pde`
+**Summary:** `SpreadSheet` class owns an `ArrayList<AbstractCell>` (composition). Constants `CELL_WIDTH`, `CELL_HEIGHT`, and `INITIAL_TEXT_SIZE` control layout. `checkPosition()` validates zero-based col/row values. `addTextCell()` and `addNumericCell()` calculate pixel x/y from col/row using `col * CELL_WIDTH` and `row * CELL_HEIGHT`. `loadFile()` parses a CSV distinguishing TextCell rows (3 fields) from NumericCell rows (4 fields). `changeTextSize()` adjusts all cells on keypress.
+**Concepts:** composition, `private final` constants, zero-based indexing, `checkPosition()` validation, `col * CELL_WIDTH` position calculation, CSV parsing by field count, `changeTextSize()`, polymorphic ArrayList
+**Key Methods:** `checkPosition(int col, int row)`, `addTextCell()`, `addNumericCell()`, `drawSpreadSheet()`, `changeTextSize(int amount)`, `loadFile(String filename)`
+**Inheritance Tree:** `AbstractCell` (abstract) → `TextCell`, `NumericCell`
+**Composition:** `SpreadSheet` ◆→ `AbstractCell`
+
+### 🧪 PRACTICE TESTS
+
+---
+
+#### Practice Test 1 — 2022: RainDrop / WaterCatcher
+**Files:** `Practice_Test_1_2022/AbstractObject.pde`, `RainDrop.pde`, `WaterCatcher.pde`, `Practice_Test_1_2022.pde`
+**Summary:** Abstract `AbstractObject` class with `PVector` position and `color`. `RainDrop` is a circle that moves downward and grows. `WaterCatcher` is a rectangle that grows in width. Objects loaded from CSV into `ArrayList<AbstractObject>`. Left click adds a `WaterCatcher`, right click adds a `RainDrop`. A randomly selected object grows each frame using `random()` and `ArrayList.get()`.
+**Concepts:** abstract class, abstract methods, `extends`, `super()`, `PVector`, `color`, `mousePressed`, `mouseButton`, `LEFT`/`RIGHT`, `random()`, `ArrayList.get()`, CSV parsing, polymorphic ArrayList
+**Key Methods:** `abstract void drawObject()`, `abstract void moveObject(int amount)`, `abstract void growObject(int amount)`, `super.toString()`, `mouseButton`, `int(random(0, list.size()-1))`
+**Inheritance Tree:** `AbstractObject` (abstract) → `RainDrop`, `WaterCatcher`
 
 ---
 
@@ -343,6 +397,16 @@ CompX221_26A/
 | ControlP5 library | Assignment 2 |
 | Vitality / death loop pattern | Assignment 2 |
 | Reverse-index ArrayList removal | Assignment 2 |
+| `instanceof` + casting | Studio_08 Ex1, Practice Test 1 2022 |
+| Composition (◆) | Studio_07 Ex1, Studio_08 Ex1, Studio_08 Ex2 |
+| `handleClick()` select/move pattern | Studio_08 Ex1 |
+| `checkPosition()` validation | Studio_08 Ex2 |
+| `col * CELL_WIDTH` position calc | Studio_08 Ex2 |
+| `changeTextSize()` | Studio_08 Ex2 |
+| `PImage` bounce logic | Studio_07 Ex2 |
+| `isEmpty()` guard | Studio_05 Ex1, Studio_07 Ex1 |
+| `random()` ArrayList access | Practice Test 1 2022, Studio_05 Ex1 |
+| `mouseButton` LEFT/RIGHT | Practice Test 1 2022 |
 
 ---
 
