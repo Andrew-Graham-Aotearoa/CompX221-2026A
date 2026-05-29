@@ -59,10 +59,15 @@ CompX221_26A/
 │   ├── Studio_07_Ex2  — TeddyBear / Wave (composition with image)
 │   └── Studio_08_Ex1  — Garden / GardenObject / Plant / Bench (full composition)
 │
-└── 09_Data_Visualisation/
-    ├── Studio_09_Ex1  — StudentMarks / DataSet (scatter plot foundation)
-    ├── Studio_09_Ex2  — DataSet with Button selection and bottom parameter
-    └── Studio_10_Ex1  — GraphManager (multi-dataset UI with folder loading)
+├── 09_Data_Visualisation/
+│   ├── Studio_09_Ex1  — StudentMarks / DataSet (scatter plot foundation)
+│   ├── Studio_09_Ex2  — DataSet with Button selection and bottom parameter
+│   └── Studio_10_Ex1  — GraphManager (multi-dataset UI with folder loading)
+│
+└── 10_Practical_Tests/
+    ├── PracticeTest1_2022 — AbstractObject / WaterCatcher / RainDrop (practice)
+    ├── PracticalTest1_2026 — GardenObject / Flower / Hedgehog (timed test)
+    └── PracTest2_2018A    — AbstractObject / Plant / Feature / Garden (timed test)
 ```
 
 ---
@@ -340,6 +345,49 @@ CompX221_26A/
 **Concepts:** composition at two levels, `java.io.File` for directory scanning, `endsWith()` for file filtering, `toArray()` for ArrayList-to-array conversion, `_isSelected` button state, modulo `%` for cycling a colour array, `split()` to strip file extension, passing `bottom` through method chain
 **Key Methods:** `getFileNames(String dir)`, `getName()`, `plotDataSet(int index)`, `plotDataSet(int bottom)`, `plotMark(int bottom)`, `drawUI()`, `checkButtonClick(int x, int y)`, `deselectObject()`, `endsWith()`, `toArray()`, `listFiles()`
 **Composition Tree:** `GraphManager` ◆→ `DataSet` ◆→ `StudentMarks`, `GraphManager` ◆→ `Button`
+
+---
+
+### 📝 PRACTICE TEST 1 — 2022
+
+---
+
+#### PracticeTest1 — 2022: AbstractObject / WaterCatcher / RainDrop
+**Files:** `AbstractObject.pde`, `WaterCatcher.pde`, `RainDrop.pde`, `Practice_Test_1_2022.pde`
+**Summary:** Practice test building a rain/water collection game framework. Abstract `AbstractObject` has `_position` (PVector) and `_objectColor`, with abstract `drawObject()`, `moveObject(int amount)` and `growObject(int amount)`, and a `toString()` returning `x,y`. `WaterCatcher` extends it as a rectangle with fixed colour `#B0BF13`, empty `moveObject()`, and `growObject()` that widens it. `RainDrop` extends it as a circle with colour `#1370BF`, `moveObject()` that moves it down, and `growObject()` that increases size. Both subclasses use `super.toString()` to avoid repeated code. A polymorphic `ArrayList<AbstractObject>` is loaded from CSV (4 fields = WaterCatcher, 3 fields = RainDrop), drawn and moved each frame, with random growth and mouse-click object creation.
+**Concepts:** abstract class, `extends`, `super()` with hardcoded colour, `super.toString()`, abstract methods, polymorphic ArrayList, CSV parsing by field count, `mouseButton == LEFT/RIGHT`, random growth with `objectList.get(int(random(...)))`
+**Key Methods:** `abstract void drawObject()`, `abstract void moveObject(int amount)`, `abstract void growObject(int amount)`, `toString()`, `super.toString()`, `mousePressed()`
+**Inheritance Tree:** `AbstractObject` (abstract) → `WaterCatcher`, `RainDrop`
+**Marks:** /40
+
+---
+
+### 📝 PRACTICAL TEST 1 — 2026
+
+---
+
+#### PracticalTest1 — 2026: GardenObject / Flower / Hedgehog
+**Files:** `GardenObject.pde`, `Flower.pde`, `Hedgehog.pde`, `PracticalTest1.pde`
+**Summary:** Timed 105-minute test building a garden game framework. Abstract `GardenObject` has `_center` (PVector) and `_objectColor`, with abstract `drawObject()`, `moveObject(int amount)` and `growObject(int amount)`, and a `toString()` returning the x and y position. `Flower` extends it as a circle with fixed colour `#57CE13`, empty `moveObject()`, and `growObject()` that increases size by the amount passed. `Hedgehog` extends it as a rectangle with fixed colour `#6C510B`, random directional `moveObject()` (up/down/left/right using `random(1,5)`), and `growObject()` that increases both width and height. A polymorphic `ArrayList<GardenObject>` is loaded from CSV (4 fields = Hedgehog, 3 fields = Flower), drawn and moved each frame, with random growth guarded by `isEmpty()` check and mouse-click object creation.
+**Concepts:** abstract class, `extends`, `super()` with hardcoded colour, `super.toString()`, abstract methods, polymorphic ArrayList, CSV parsing by field count, random directional movement, `isEmpty()` guard, `mouseButton == LEFT/RIGHT`, `frameRate()`, `noStroke()`
+**Key Methods:** `abstract void drawObject()`, `abstract void moveObject(int amount)`, `abstract void growObject(int amount)`, `toString()`, `super.toString()`, `moveObject()` with random direction, `mousePressed()`
+**Inheritance Tree:** `GardenObject` (abstract) → `Flower`, `Hedgehog`
+**Marks:** /40
+
+---
+
+### 📝 PRACTICAL TEST 2 — 2018A
+
+---
+
+#### PracTest2 — 2018A: AbstractObject / Plant / Feature / Garden
+**Files:** `AbstractObject.pde`, `Plant.pde`, `Feature.pde`, `Garden.pde`, `PracTest2_2018.pde`
+**Summary:** Timed 105-minute open book test building a garden composition system from scratch using a UML class diagram. `AbstractObject` is an abstract class with `_position` and `_objectColor`. `Plant` and `Feature` extend it with `drawObject()` implementations — `Plant` draws a named circle, `Feature` draws a rectangle. `Garden` composes an `ArrayList<AbstractObject>` and manages adding, drawing and growing objects. `instanceof` used in `growGarden()` to cast and call `growPlant()` on `Plant` objects only. The sketch tab and `createGarden()` method were provided and must not be modified.
+**Concepts:** abstract class, `extends`, `super()`, abstract `drawObject()`, composition, `ArrayList<AbstractObject>`, `instanceof` casting, `rectMode(CENTER)`, `ellipseMode(CENTER)`, `textAlign(CENTER)`, `private final` constant, `growPlant(int amount)`
+**Key Methods:** `abstract void drawObject()`, `drawObject()`, `growPlant(int amount)`, `addPlant()`, `addFeature()`, `drawGarden()`, `growGarden(int amount)`
+**Inheritance Tree:** `AbstractObject` (abstract) → `Plant`, `Feature`
+**Composition Tree:** `Garden` ◆→ `AbstractObject`
+**Marks:** /20
 
 ---
 
