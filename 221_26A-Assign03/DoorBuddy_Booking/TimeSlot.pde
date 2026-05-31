@@ -1,42 +1,134 @@
 class TimeSlot
 {
- private int _week;
- private String _weekDay;
- private String _timeOfDay;
- private String _availability;
- private String _apptLocation;
- private String _title;
- 
- public TimeSlot()
- {
- 
- }
- 
- public String getAvailability()
- {
-   return _availability;
- }
- 
- public Boolean isClicked(int x, int y)
- {
-  return true; 
- }
-  
+  private String _staff;
+  private String _courseCode;
+  private String _roomNo;
+  private Boolean _inPerson;
+  private int _duration;
+  private String _day;
+  private String _time;
+  private String _titleCode;
+  private Boolean _isSelected;
+  private ArrayList<Booking> _bookings;
+
+  public TimeSlot(TableRow row, Table table)
+  {
+    _duration = -1;
+    _isSelected = false;
+    _bookings = new ArrayList<Booking>();
+
+    loadSlotData(row, table);
+    loadBookingData(row, table);
+  }
+
+  private void loadSlotData(TableRow row, Table table)
+  {
+    _staff = row.getString("Staff");
+    _day = row.getString("Day");
+    _time = row.getString("Time");
+    _titleCode = row.getString("Title");
+
+    if (table.getColumnIndex("CourseCode") >= 0)
+      _courseCode = row.getString("CourseCode");
+
+    if (table.getColumnIndex("RoomNo") >= 0)
+      _roomNo = row.getString("RoomNo");
+
+    if (table.getColumnIndex("InPerson") >= 0)
+      _inPerson = row.getString("InPerson").equals("Y");
+
+    if (table.getColumnIndex("Duration") >= 0 && !row.getString("Duration").isEmpty())
+    {
+      _duration = row.getInt("Duration");
+    }
+  }
+
+
+  //add confrirm field if the csv table changes        *****************************
+
+  private void loadBookingData(TableRow row, Table table)
+  {
+    if (row.getString("BookRef") != null && !row.getString("BookRef").isEmpty())
+    {
+      Booking booking = new Booking(
+        row.getString("Name"),
+        row.getInt("Id"),
+        row.getString("Course"),
+        row.getString("Note"),
+        row.getFloat("BookRef"),
+        _duration);
+
+      addBooking(booking);
+    }
+  }
+
+  public Boolean addBooking(Booking booking)
+  {
+    if (_bookings.size() < 4)
+    {
+      _bookings.add(booking);
+      return true;
+    }
+
+    return false;
+  }
+
+  public String getDay()
+  {
+    return _day;
+  }
+
+  public String getTime()
+  {
+    return _time;
+  }
+
+  public String getTitleCode()
+  {
+    return _titleCode;
+  }
+
+  public String getCourseCode()
+  {
+    return _courseCode;
+  }
+
+  public String getRoomNo()
+  {
+    return _roomNo;
+  }
+
+  public Boolean getInPerson()
+  {
+    return _inPerson;
+  }
+
+  public int getDuration()
+  {
+    return _duration;
+  }
+
+  public String getStaffName()
+  {
+   return _staff; 
+  }
+   
+  public void setIsSelected(Boolean selected)
+  {
+    _isSelected = selected;
+  }
+
+  public Boolean getIsSelected()
+  {
+    return _isSelected;
+  }
+
+  public color colorCode()
+  {
+    return color(200);
+  }
+
   public void draw()
   {
-    
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 }
