@@ -28,12 +28,20 @@ class LoginScreen
     _cancelButton = new Button(640, 460, color(200, 100, 100), 120, 40, "CANCEL");
 
     _cp5.addTextfield("username")
-      .setPosition(540, 300)
+      .setPosition(580, 280)
       .setSize(200, 30)
+      .setLabel("")
+      .setColorBackground(color(218, 217, 217))
+      .setFont(createFont("Arial", 12))
+      .setColorValue(color(0))
       .setText(_currentStaffName);
 
     _cp5.addTextfield("password")
-      .setPosition(540, 350)
+      .setPosition(580, 330)
+      .setLabel("")
+      .setColorBackground(color(218, 217, 217))
+      .setFont(createFont("Arial", 12))
+      .setColorValue(color(0))
       .setSize(200, 30);
   }
 
@@ -61,7 +69,6 @@ class LoginScreen
     String enteredUsername = _cp5.get(Textfield.class, "username").getText();
     String enteredPassword = _cp5.get(Textfield.class, "password").getText();
     String loadedStaffName = _timeSlots.get(0).getStaffName();
-    _authFailed = false;
     
     if (enteredPassword.equals(_password) && enteredUsername.equals(loadedStaffName))
     {
@@ -102,21 +109,21 @@ class LoginScreen
 
   public void draw()
   {
-    fill(#D9D9D9);
+    fill(#C5C4C4);
     rectMode(CENTER);
-    rect(640, 360, 400, 300);
+    rect(640, 360, 1280, 720);
 
     fill(0);
     textAlign(LEFT);
-    text("Username:", 490, 310);
-    text("Password:", 490, 360);
+    text("Username:", 490, 300);
+    text("Password:", 490, 345);
 
     _confirmButton.drawButton();
     _cancelButton.drawButton();
     
     if (_authFailed == true)
     {
-     text("Authentication Failed, check Username or Password", 400, 450); 
+     text("Authentication Failed, check Username or Password", 660, 226); 
     }
   }
 }

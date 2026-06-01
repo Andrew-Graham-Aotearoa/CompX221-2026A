@@ -7,6 +7,7 @@ class BookingScreen extends AbstractScreen
  public BookingScreen(TimeSlot _timeSlot, String staffName, String office)
  {
  super(staffName, office);
+ loadGridLabels();
  }
 
   public void show()

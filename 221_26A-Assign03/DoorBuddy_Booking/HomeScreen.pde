@@ -14,11 +14,9 @@ class HomeScreen extends AbstractScreen
     _selectedSlot = null;
     _showLogin = false;
     _showBooking = false;
-    _staffName = staffName;
-    _office = office;
-
     _setScheduleButton = new Button(1197, 357, color(200, 228, 251), 115, 50, "SET SCHEDULE");
     _submitButton = new Button(1197, 617, color(116, 195, 118), 115, 50, "SUBMIT");
+    loadGridLabels();
   }
 
   public Boolean getShowLogin()
@@ -50,20 +48,13 @@ class HomeScreen extends AbstractScreen
 
   public void draw()
   {
-    //logo draw, header section
-    super.draw();
-   
+    //logo draw, header section\
 
-    //Day Display
     
-    
-    
-    
-    //Time Display
-    
-    
-    
-    //grid Section
+      super.draw();
+  
+
+    //Timeslot grid Display
     for (TimeSlot slot : _timeSlots)
     {
       int col = dayToColumn(slot.getDay());
@@ -77,10 +68,16 @@ class HomeScreen extends AbstractScreen
       fill(slot.colorCode());
       rectMode(CORNER);
       rect(cellX, cellY, _CELLWIDTH, _CELLHEIGHT);
+     
+      textSize(16);
+      fill(0);
 
       if (slot.getRoomNo() != null && !slot.getRoomNo().isEmpty())
       {
+        fill(0);
         text(slot.getRoomNo(), cellX, cellY + 15 );
+        println(slot.getRoomNo());
+        println(cellX + " " + cellY);
       }
       if (slot.getCourseCode() != null && !slot.getCourseCode().isEmpty())
       {
