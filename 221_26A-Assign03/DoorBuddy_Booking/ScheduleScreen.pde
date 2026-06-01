@@ -25,10 +25,3 @@ class ScheduleScreen extends AbstractScreen
   
   
 }  
-  
-  
-  
-  
-  
-  
-}

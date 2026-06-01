@@ -6,7 +6,7 @@ class TimeSlot
   private Boolean _inPerson;
   private int _duration;
   private String _day;
-  private String _time;
+  private int _time;
   private String _titleCode;
   private Boolean _isSelected;
   private ArrayList<Booking> _bookings;
@@ -25,7 +25,7 @@ class TimeSlot
   {
     _staff = row.getString("Staff");
     _day = row.getString("Day");
-    _time = row.getString("Time");
+    _time = row.getInt("Time");
     _titleCode = row.getString("Title");
 
     if (table.getColumnIndex("CourseCode") >= 0)
@@ -78,7 +78,7 @@ class TimeSlot
     return _day;
   }
 
-  public String getTime()
+  public int getTime()
   {
     return _time;
   }

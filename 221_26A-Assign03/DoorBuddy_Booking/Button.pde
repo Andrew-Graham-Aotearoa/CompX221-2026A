@@ -33,7 +33,7 @@ class Button
       fill(_buttonColor);
     }
     
-    rect(_center.x, _center.y, _bHeight, _bWidth);
+    rect(_center.x, _center.y, _bWidth, _bHeight);
     textAlign(CENTER);
     fill(#444848);
     text(_caption, _center.x, _center.y);

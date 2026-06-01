@@ -4,6 +4,7 @@ ControlP5 cp5;
 
 final String PASSWORD = "password123";
 final String DEFAULT_STAFF = "StaffName.csv";
+final String WEEK_DISPLAY = "11/05/26";
 
 AbstractScreen currentScreen;
 LoginScreen loginScreen;
@@ -35,7 +36,7 @@ void setup()
   loginScreen = new LoginScreen(cp5, PASSWORD, timeSlots.get(0).getStaffName(), timeSlots);
   loginScreen.hide();
 
-  homeScreen = new HomeScreen();
+  homeScreen = new HomeScreen(timeSlots, timeSlots.get(0).getStaffName(), OFFICE);
   scheduleScreen = new ScheduleScreen();
   currentScreen = homeScreen;
 }
