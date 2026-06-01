@@ -4,14 +4,12 @@ class HomeScreen extends AbstractScreen
   private TimeSlot _selectedSlot;
   private Boolean _showLogin;
   private Boolean _showBooking;
-  private String _staffName;
-  private String _office;
   private Button _setScheduleButton;
   private Button _submitButton;
 
   public HomeScreen(ArrayList<TimeSlot> timeSlots, String staffName, String office)
   {
-    super();
+    super(staffName, office);
     _timeSlots = timeSlots;
     _selectedSlot = null;
     _showLogin = false;
@@ -19,8 +17,8 @@ class HomeScreen extends AbstractScreen
     _staffName = staffName;
     _office = office;
 
-    _setScheduleButton = new Button(1139, 357, color(200, 228, 251), 115, 50, "SET SCHEDULE");
-    _submitButton = new Button(1139, 617, color(116, 195, 118), 115, 50, "SUBMIT");
+    _setScheduleButton = new Button(1197, 357, color(200, 228, 251), 115, 50, "SET SCHEDULE");
+    _submitButton = new Button(1197, 617, color(116, 195, 118), 115, 50, "SUBMIT");
   }
 
   public Boolean getShowLogin()
@@ -52,27 +50,64 @@ class HomeScreen extends AbstractScreen
 
   public void draw()
   {
-    //header sectioin
-    //logo draw
+    //logo draw, header section
     super.draw();
+   
 
-    textAlign(LEFT);
-    text("Week Starting:", 355, 55);
+    //Day Display
+    
+    
+    
+    
+    //Time Display
+    
+    
+    
+    //grid Section
+    for (TimeSlot slot : _timeSlots)
+    {
+      int col = dayToColumn(slot.getDay());
+      int row = timeToRow(slot.getTime());
 
-    stroke(#000000);
-    rectMode(CORNER);
-    fill(#D9D9D9);
+      if (col == -1 || row == -1) continue;
 
-    rect(489, 30, 150, 50);
-    text(WEEK_DISPLAY, 489, 55);
+      int cellX = _GRID_START_X + (col * _CELLWIDTH);
+      int cellY = _GRID_START_Y + (row * _CELLHEIGHT);
 
-    text(_office, 661, 55);
+      fill(slot.colorCode());
+      rectMode(CORNER);
+      rect(cellX, cellY, _CELLWIDTH, _CELLHEIGHT);
 
-    rect(736, 30, 150, 50);
-    text(_staffName, 741, 55);
-
-    //grid render
+      if (slot.getRoomNo() != null && !slot.getRoomNo().isEmpty())
+      {
+        text(slot.getRoomNo(), cellX, cellY + 15 );
+      }
+      if (slot.getCourseCode() != null && !slot.getCourseCode().isEmpty())
+      {
+        text(slot.getCourseCode(), cellX, cellY +30 );
+      }
+    }
+    //highlight display in Grid
+    if (_selectedSlot != null)
+    {
+      //calculate cellX and cellY from _selectedSlot
+      int col = dayToColumn(_selectedSlot.getDay());
+      int row = timeToRow(_selectedSlot.getTime());
+      int cellX = _GRID_START_X + (col * _CELLWIDTH);
+      int cellY = _GRID_START_Y + (row * _CELLHEIGHT);
+      // draw highlight rect
+      stroke(#74C376);
+      strokeWeight(3);
+      noFill();
+      rect(cellX, cellY, _CELLWIDTH, _CELLHEIGHT);
+      strokeWeight(1);
+      stroke(#000000);
+    }
+    //show buttons
+    _setScheduleButton.drawButton();
+    _submitButton.drawButton();
   }
+
 
   public int dayToColumn(String day)
   {
@@ -106,10 +141,39 @@ class HomeScreen extends AbstractScreen
     return row;
   }
 
-  //cellX = _GRID_START_X + (columnIndex * _CELLWIDTH)
-  //cellY = _GRID_START_Y + (rowIndex * _CELLHEIGHT)
-
   public void mousePressed(int x, int y)
   {
+    int clickCol = (x - _GRID_START_X) / _CELLWIDTH;
+    int clickRow = (y - _GRID_START_Y) / _CELLHEIGHT;
+    _setScheduleButton.deselectObject();
+    _submitButton.deselectObject();
+    if (clickCol >= 0 && clickCol <= 4 && clickRow >= 0 && clickRow <= 9)
+    {
+      if (_selectedSlot != null)
+      {
+        _selectedSlot.setIsSelected(false);
+        _selectedSlot = null;
+      }
+      for (TimeSlot slot : _timeSlots)
+      {
+        int col = dayToColumn(slot.getDay());
+        int row = timeToRow(slot.getTime());
+
+        if (col == clickCol && row == clickRow)
+        {
+          _selectedSlot = slot;
+          _selectedSlot.setIsSelected(true);
+          break;
+        }
+      }
+    }
+    if (_setScheduleButton.isClicked(x, y))
+    {
+      _showLogin = true;
+    }
+    if (_submitButton.isClicked(x, y))
+    {
+      _showBooking = true;
+    }
   }
 }

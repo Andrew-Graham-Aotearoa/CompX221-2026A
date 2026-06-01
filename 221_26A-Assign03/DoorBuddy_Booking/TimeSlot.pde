@@ -125,7 +125,7 @@ class TimeSlot
 
   public color colorCode()
   {
-    return color(200);
+    return color(#D9D9D9);
   }
 
   public void draw()

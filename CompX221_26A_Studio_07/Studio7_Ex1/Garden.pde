@@ -1,7 +1,7 @@
 class Garden
 {
   //to implement an aggregation we need to create an
-  //array list to store obejects
+  //array list to store objects
 
   private ArrayList<Plant> _plantList;
 

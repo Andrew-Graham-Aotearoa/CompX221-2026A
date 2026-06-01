@@ -3,13 +3,15 @@ import controlP5.*;
 ControlP5 cp5;
 
 final String PASSWORD = "password123";
-final String DEFAULT_STAFF = "StaffName.csv";
-final String WEEK_DISPLAY = "11/05/26";
+//Loads CSV
+final String DEFAULT_STAFF = "2026_Assign3_Sample_Data_1.csv";
+
 
 AbstractScreen currentScreen;
 LoginScreen loginScreen;
 ScheduleScreen scheduleScreen;
 HomeScreen homeScreen;
+BookingScreen bookingScreen;
 Staff  staff;
 final String ADMIN_NAME = "Phil";
 final String OFFICE = "G23";
@@ -37,7 +39,7 @@ void setup()
   loginScreen.hide();
 
   homeScreen = new HomeScreen(timeSlots, timeSlots.get(0).getStaffName(), OFFICE);
-  scheduleScreen = new ScheduleScreen();
+  scheduleScreen = new ScheduleScreen( timeSlots.get(0).getStaffName(), OFFICE);
   currentScreen = homeScreen;
 }
 
@@ -78,6 +80,7 @@ void draw()
       currentScreen = homeScreen;
     }
   }
+   println("Mouse position: " + mouseX + ", " + mouseY);
 }
 
 void mousePressed()

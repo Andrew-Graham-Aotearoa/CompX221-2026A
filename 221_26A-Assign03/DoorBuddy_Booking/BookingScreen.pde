@@ -4,8 +4,9 @@ class BookingScreen extends AbstractScreen
   
   
   
- public BookingScreen(TimeSlot _timeSlot)
+ public BookingScreen(TimeSlot _timeSlot, String staffName, String office)
  {
+ super(staffName, office);
  }
 
   public void show()
@@ -19,6 +20,8 @@ class BookingScreen extends AbstractScreen
 
   public void draw()
   {
+    //logo draw, header section
+    super.draw();
   }
 
   public void mousePressed(int x, int y)
