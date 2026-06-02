@@ -6,7 +6,7 @@ class ScheduleScreen extends AbstractScreen
   public ScheduleScreen(String staffName, String office)
   {
  super(staffName, office);
- //loadGridLabels();
+ loadGridLabels();
   }
   public void show()
   {

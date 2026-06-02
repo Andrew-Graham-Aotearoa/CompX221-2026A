@@ -6,8 +6,9 @@ class Booking
   private String _note;
   private Float _bookRef;
   private int _duration;
+  private String _email;
 
-  public Booking(String name, int id, String course, String note, Float bookRef, int duration)
+  public Booking(String name, int id, String course, String note, Float bookRef, int duration, String email)
   {
     _name = name;
     _id = id;
@@ -15,6 +16,7 @@ class Booking
     _note = note;
     _bookRef = bookRef;
     _duration = duration;
+    _email = email;
   }
 
 
@@ -48,11 +50,15 @@ class Booking
    return _id; 
   }
   
+  public String getEmail()
+  {
+   return _email; 
+  }
 
 //This method would send a notification to an email address.
   public void sendNotification()
   {
-    println(_bookRef+" "+"Notification sent to:"+" "+_name);
+    println(_bookRef+" "+"Notification sent to:"+" "+_name+" "+_email);
   }
 
 }

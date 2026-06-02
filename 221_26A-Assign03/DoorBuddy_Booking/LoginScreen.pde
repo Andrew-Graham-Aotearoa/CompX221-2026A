@@ -24,12 +24,12 @@ class LoginScreen
     _isAuthenticated = false;
     _isCancelled = false;
     _authFailed = false;
-    _confirmButton = new Button(640, 400, color(100, 200, 100), 120, 40, "CONFIRM");
+    _confirmButton = new Button(640, 410, color(100, 200, 100), 120, 40, "CONFIRM");
     _cancelButton = new Button(640, 460, color(200, 100, 100), 120, 40, "CANCEL");
 
     _cp5.addTextfield("username")
       .setPosition(580, 280)
-      .setSize(200, 30)
+      .setSize(200, 40)
       .setLabel("")
       .setColorBackground(color(218, 217, 217))
       .setFont(createFont("Arial", 12))
@@ -42,7 +42,7 @@ class LoginScreen
       .setColorBackground(color(218, 217, 217))
       .setFont(createFont("Arial", 12))
       .setColorValue(color(0))
-      .setSize(200, 30);
+      .setSize(200, 40);
   }
 
   public void show()
@@ -56,7 +56,14 @@ class LoginScreen
     _cp5.getController("username").hide();
     _cp5.getController("password").hide();
   }
-
+  
+  public void loginReset()
+  {
+    _isAuthenticated = false;
+    _isCancelled = false;
+    _authFailed = false;
+  }  
+  
   public Boolean getIsAuthenticated()
   {
     return _isAuthenticated;
@@ -73,6 +80,7 @@ class LoginScreen
     if (enteredPassword.equals(_password) && enteredUsername.equals(loadedStaffName))
     {
       _isAuthenticated = true;
+      _confirmButton.deselectObject();
     } else
     {
       _isAuthenticated = false;
@@ -100,6 +108,7 @@ class LoginScreen
     if (_confirmButton.isClicked(x, y))
     {
       authenticate();
+      _confirmButton.deselectObject();
     }
     if (_cancelButton.isClicked(x, y))
     {
@@ -115,15 +124,16 @@ class LoginScreen
 
     fill(0);
     textAlign(LEFT);
-    text("Username:", 490, 300);
-    text("Password:", 490, 345);
+    text("Username:", 490, 304);
+    text("Password:", 490, 355);
 
     _confirmButton.drawButton();
     _cancelButton.drawButton();
     
     if (_authFailed == true)
     {
-     text("Authentication Failed, check Username or Password", 660, 226); 
+     text("Authentication Failed, check Username or Password", 660, 226);
+     
     }
   }
 }

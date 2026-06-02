@@ -56,7 +56,8 @@ class TimeSlot
         row.getString("Course"),
         row.getString("Note"),
         row.getFloat("BookRef"),
-        _duration);
+        _duration,
+        "");
 
       addBooking(booking);
     }
@@ -123,10 +124,40 @@ class TimeSlot
     return _isSelected;
   }
 
-  public color colorCode()
+public color colorCode()
+{
+  String title = getTitleCode();
+
+  if (title.equals("Cla") ||
+      title.equals("Mmm") ||
+      title.equals("Mst") ||
+      title.equals("Msu") ||
+      title.equals("Mae") ||
+      title.equals("Res") ||
+      title.equals("Una") ||
+      title.equals("Lun") ||
+      title.equals("Unc"))
   {
-    return color(#D9D9D9);
+    //unavailable
+    return #F8B6B7;
   }
+    
+  if (title.equals("May") ||
+      title.equals("Ofh") ||
+      title.equals("Wfh"))
+  {
+    //Maybe available
+    return #FFE2C1;
+  }
+
+  if (title.equals("Ava"))
+  {
+    //Available
+    return #CDE6C6;
+  }
+
+  return #D9D9D9;
+}
 
   public void draw()
   {

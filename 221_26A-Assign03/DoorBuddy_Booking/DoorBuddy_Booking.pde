@@ -72,12 +72,15 @@ void draw()
       staff = new Staff(enteredUserName, role, OFFICE);
       loginScreen.hide();
       _loginActive = false;
+      homeScreen.resetShowLogin();
       currentScreen = scheduleScreen;
+    
     }
     if (loginScreen.getIsCancelled() == true)
     {
       loginScreen.hide();
       _loginActive = false;
+      homeScreen.resetShowLogin();
       currentScreen = homeScreen;
     }
   }
@@ -85,8 +88,10 @@ void draw()
   {
     _loginActive = true;
     loginScreen.show();
+    loginScreen.loginReset();
+    homeScreen.resetShowLogin();
   }
-  println("Mouse position: " + mouseX + ", " + mouseY);
+  //println("Mouse position: " + mouseX + ", " + mouseY);
 }
 
 void mousePressed()

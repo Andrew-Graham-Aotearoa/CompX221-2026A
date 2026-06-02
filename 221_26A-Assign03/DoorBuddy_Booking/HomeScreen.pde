@@ -23,6 +23,11 @@ class HomeScreen extends AbstractScreen
   {
     return _showLogin;
   }
+  
+  public void resetShowLogin()
+  {
+   _showLogin = false; 
+  }
 
   public Boolean getShowBooking()
   {
