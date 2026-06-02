@@ -24,17 +24,9 @@ abstract class AbstractScreen
     
   }
 
-  public void show()
-  {
-  }
-
-  public void hide()
-  {
-  }
-
-
   public void draw()
   {
+    //Logotype
     image(_logo, 25, 25, 181, 36);
 
     //Header Section
@@ -84,6 +76,30 @@ abstract class AbstractScreen
       _staticLabels.add(times[i]);
       _labelPositions.add(new PVector(90, _GRID_START_Y+ 35 + (i * _CELLHEIGHT)));
     }
-    
   }
+  
+   protected void drawColorKeys()
+   {
+      fill(#CDE6C6);
+      rectMode(CENTER);
+      rect(1197, 280,  115, 50);
+      fill(0);
+      text("Available",1170, 285);
+      
+      fill(#FFE2C1);
+      rectMode(CENTER);
+      rect(1197, 225,  115, 50);
+      fill(0);
+      text("Flexible",1170, 225);
+      
+      fill(#F8B6B7);
+      rectMode(CENTER);
+      rect(1197, 170,  115, 50);
+      fill(0);
+      text("Unavailable",1160, 170);
+      
+      text("Colour Key", 1147,135);
+   }
+    
+
 }

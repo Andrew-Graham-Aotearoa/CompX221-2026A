@@ -38,8 +38,9 @@ void setup()
   loginScreen.hide();
 
   homeScreen = new HomeScreen(timeSlots, timeSlots.get(0).getStaffName(), OFFICE);
-  scheduleScreen = new ScheduleScreen( timeSlots.get(0).getStaffName(), OFFICE);
+  scheduleScreen = new ScheduleScreen(timeSlots, timeSlots.get(0).getStaffName(), OFFICE);
   currentScreen = homeScreen;
+  
 }
 
 
@@ -91,7 +92,15 @@ void draw()
     loginScreen.loginReset();
     homeScreen.resetShowLogin();
   }
-  //println("Mouse position: " + mouseX + ", " + mouseY);
+  
+  if (currentScreen == homeScreen && homeScreen.getShowBooking())
+{
+    bookingScreen = new BookingScreen(homeScreen.getSelectedSlot(), timeSlots.get(0).getStaffName(), OFFICE);
+    homeScreen.resetShowBooking();
+    currentScreen = bookingScreen;
+}
+  
+  println("Mouse position: " + mouseX + ", " + mouseY);
 }
 
 void mousePressed()

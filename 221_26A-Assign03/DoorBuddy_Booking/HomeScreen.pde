@@ -16,6 +16,8 @@ class HomeScreen extends AbstractScreen
     _showBooking = false;
     _setScheduleButton = new Button(1197, 357, color(200, 228, 251), 115, 50, "SET SCHEDULE");
     _submitButton = new Button(1197, 617, color(116, 195, 118), 115, 50, "SUBMIT");
+    
+    //Draw labels
     loadGridLabels();
   }
 
@@ -33,15 +35,17 @@ class HomeScreen extends AbstractScreen
   {
     return _showBooking;
   }
+  
+  public void resetShowBooking()
+  {
+   _showBooking = false; 
+  }
 
   public TimeSlot getSelectedSlot()
   {
     return _selectedSlot;
   }
 
-  public void hide()
-  {
-  }
 
   //Investigate later: set the display week to current week.
   //public String getDate()
@@ -53,11 +57,9 @@ class HomeScreen extends AbstractScreen
 
   public void draw()
   {
-    //logo draw, header section\
-
-    
+    //logo draw, header section, Color Keys
       super.draw();
-  
+      drawColorKeys();
 
     //Timeslot grid Display
     for (TimeSlot slot : _timeSlots)
@@ -72,11 +74,11 @@ class HomeScreen extends AbstractScreen
 
       fill(slot.colorCode());
       rectMode(CORNER);
-      rect(cellX, cellY, _CELLWIDTH, _CELLHEIGHT);
-     
+      rect(cellX, cellY, _CELLWIDTH, _CELLHEIGHT);    
       textSize(16);
       fill(0);
 
+      //Draw Cells Add Text
       if (slot.getRoomNo() != null && !slot.getRoomNo().isEmpty())
       {
         fill(0);
@@ -87,6 +89,14 @@ class HomeScreen extends AbstractScreen
       if (slot.getCourseCode() != null && !slot.getCourseCode().isEmpty())
       {
         text(slot.getCourseCode(), cellX, cellY +30 );
+      }
+      
+      int count = slot.getBookingCount();
+      if (count > 0)
+      {
+      fill(#F8B6B7);
+      rectMode(CORNER);
+      rect(cellX, cellY + _CELLHEIGHT-6,  (_CELLWIDTH/4) * slot.getBookingCount(), 6); 
       }
     }
     //highlight display in Grid
@@ -105,7 +115,7 @@ class HomeScreen extends AbstractScreen
       strokeWeight(1);
       stroke(#000000);
     }
-    //show buttons
+    //Draw buttons
     _setScheduleButton.drawButton();
     _submitButton.drawButton();
   }

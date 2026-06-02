@@ -111,9 +111,9 @@ class TimeSlot
 
   public String getStaffName()
   {
-   return _staff; 
+    return _staff;
   }
-   
+
   public void setIsSelected(Boolean selected)
   {
     _isSelected = selected;
@@ -124,11 +124,16 @@ class TimeSlot
     return _isSelected;
   }
 
-public color colorCode()
-{
-  String title = getTitleCode();
+  public int getBookingCount()
+  {
+    return _bookings.size();
+  }
 
-  if (title.equals("Cla") ||
+  public color colorCode()
+  {
+    String title = _titleCode;
+    //unavailable
+    if (title.equals("Cla") ||
       title.equals("Mmm") ||
       title.equals("Mst") ||
       title.equals("Msu") ||
@@ -137,27 +142,24 @@ public color colorCode()
       title.equals("Una") ||
       title.equals("Lun") ||
       title.equals("Unc"))
-  {
-    //unavailable
-    return #F8B6B7;
-  }
-    
-  if (title.equals("May") ||
-      title.equals("Ofh") ||
-      title.equals("Wfh"))
-  {
+    {
+      return #F8B6B7;
+    }
     //Maybe available
-    return #FFE2C1;
-  }
-
-  if (title.equals("Ava"))
-  {
+    if (title.equals("May") ||
+      title.equals("Wfh"))
+    {
+      return #FFE2C1;
+    }
     //Available
-    return #CDE6C6;
-  }
+    if (title.equals("Ava")||
+      title.equals("Ofh"))
+    {
+      return #CDE6C6;
+    }
 
-  return #D9D9D9;
-}
+    return #D9D9D9;
+  }
 
   public void draw()
   {
