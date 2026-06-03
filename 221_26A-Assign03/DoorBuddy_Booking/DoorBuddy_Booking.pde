@@ -95,7 +95,7 @@ void draw()
   
   if (currentScreen == homeScreen && homeScreen.getShowBooking())
 {
-    bookingScreen = new BookingScreen(homeScreen.getSelectedSlot(), timeSlots.get(0).getStaffName(), OFFICE);
+    bookingScreen = new BookingScreen(cp5, homeScreen.getSelectedSlot(), timeSlots.get(0).getStaffName(), OFFICE);
     homeScreen.resetShowBooking();
     currentScreen = bookingScreen;
 }

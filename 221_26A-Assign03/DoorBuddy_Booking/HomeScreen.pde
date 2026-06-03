@@ -6,6 +6,8 @@ class HomeScreen extends AbstractScreen
   private Boolean _showBooking;
   private Button _setScheduleButton;
   private Button _submitButton;
+  private Button _cancelButton;
+//add cancel button?
 
   public HomeScreen(ArrayList<TimeSlot> timeSlots, String staffName, String office)
   {
@@ -15,7 +17,8 @@ class HomeScreen extends AbstractScreen
     _showLogin = false;
     _showBooking = false;
     _setScheduleButton = new Button(1197, 357, color(200, 228, 251), 115, 50, "SET SCHEDULE");
-    _submitButton = new Button(1197, 617, color(116, 195, 118), 115, 50, "SUBMIT");
+    _cancelButton = new Button(1197, 607, color(248, 182, 183), 115, 50, "CANCEL");
+    _submitButton = new Button(1197, 672, color(116, 195, 118), 115, 50, "SUBMIT");
     
     //Draw labels
     loadGridLabels();
@@ -118,6 +121,7 @@ class HomeScreen extends AbstractScreen
     //Draw buttons
     _setScheduleButton.drawButton();
     _submitButton.drawButton();
+    _cancelButton.drawButton();
   }
 
 

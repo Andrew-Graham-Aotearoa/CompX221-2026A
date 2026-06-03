@@ -32,6 +32,8 @@ class LoginScreen
       .setSize(200, 40)
       .setLabel("")
       .setColorBackground(color(218, 217, 217))
+      .setColorForeground(color(0))
+      .setColorActive(color(116, 195, 118))
       .setFont(createFont("Arial", 12))
       .setColorValue(color(0))
       .setText(_currentStaffName);
@@ -40,6 +42,8 @@ class LoginScreen
       .setPosition(580, 330)
       .setLabel("")
       .setColorBackground(color(218, 217, 217))
+      .setColorForeground(color(0))
+      .setColorActive(color(116, 195, 118))
       .setFont(createFont("Arial", 12))
       .setColorValue(color(0))
       .setSize(200, 40);
