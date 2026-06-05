@@ -78,7 +78,7 @@ class BookingScreen extends AbstractScreen
       .setColorValue(color(0))
       .setText("");
 
-    _cancelButton = new Button(1197, 607, color(248, 182, 183), 115, 50, "CANCEL");
+    _cancelButton = new Button(1197, 607, color(248, 182, 183), 115, 50, "HOME");
     _submitButton = new Button(1197, 672, color(116, 195, 118), 115, 50, "SUBMIT");
   }
 
@@ -122,15 +122,17 @@ class BookingScreen extends AbstractScreen
 
   public long getCompletionTime()
   {
-   return _completionTime; 
+    return _completionTime;
   }
-  
-  
+
+
   public void draw()
   {
     //logo draw, header section
     super.draw();
+    drawColorKeys();
     textSize(16);
+    //println(_timeSlot);
 
     //Input Field labels
     fill(0);
@@ -162,6 +164,8 @@ class BookingScreen extends AbstractScreen
 
     if (_timeSlot != null)
     {
+      println(_timeSlot);
+
       textSize(16);
       textAlign(LEFT);
       fill(0);
@@ -330,8 +334,8 @@ class BookingScreen extends AbstractScreen
     textAlign(LEFT);
     textSize(24);
     fill(#D35353);
-    text(_errorMessageName, 990, 305);
-    text(_errorMessageEmail, 990, 365);
+    text(_errorMessageName, 985, 310);
+    text(_errorMessageEmail, 985, 370);
     text(_errorMessageTime, 216, 500);
 
     if (_bookingComplete)
@@ -344,6 +348,10 @@ class BookingScreen extends AbstractScreen
 
   public void mousePressed(int x, int y)
   {
+    _errorMessageName = "";
+    _errorMessageEmail = "";
+    _errorMessageTime = "";
+    
     if (_cancelButton.isClicked(x, y))
     {
       _isCanceled = true;
@@ -435,7 +443,7 @@ class BookingScreen extends AbstractScreen
             new Booking(name, 0, course, note, 0.0, 0, email, "");
           booking.sendNotification();
         }
-        _submitButton.deselectObject();
+        //_submitButton.deselectObject();
         _bookingComplete = true;
         hideInputBoxes();
         _completionTime = millis();

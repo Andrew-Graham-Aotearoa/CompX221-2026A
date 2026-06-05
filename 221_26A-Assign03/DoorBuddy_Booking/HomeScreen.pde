@@ -6,8 +6,7 @@ class HomeScreen extends AbstractScreen
   private Boolean _showBooking;
   private Button _setScheduleButton;
   private Button _submitButton;
-  private Button _cancelButton;
-//add cancel button?
+  //private Button _cancelButton;
 
   public HomeScreen(ArrayList<TimeSlot> timeSlots, String staffName, String office)
   {
@@ -17,9 +16,9 @@ class HomeScreen extends AbstractScreen
     _showLogin = false;
     _showBooking = false;
     _setScheduleButton = new Button(1197, 357, color(200, 228, 251), 115, 50, "SET SCHEDULE");
-    _cancelButton = new Button(1197, 607, color(248, 182, 183), 115, 50, "CANCEL");
-    _submitButton = new Button(1197, 672, color(116, 195, 118), 115, 50, "SUBMIT");
-    
+    //_cancelButton = new Button(1197, 607, color(248, 182, 183), 115, 50, "CANCEL");
+    _submitButton = new Button(1197, 672, color(116, 195, 118), 115, 50, "SELECT");
+
     //Draw labels
     loadGridLabels();
   }
@@ -28,26 +27,26 @@ class HomeScreen extends AbstractScreen
   {
     return _showLogin;
   }
-  
+
   public void resetShowLogin()
   {
-   _showLogin = false; 
+    _showLogin = false;
   }
 
   public void resetButtons()
   {
-   _submitButton.deselectObject();
-   _setScheduleButton.deselectObject();  
+    _submitButton.deselectObject();
+    _setScheduleButton.deselectObject();
   }
-  
+
   public Boolean getShowBooking()
   {
     return _showBooking;
   }
-  
+
   public void resetShowBooking()
   {
-   _showBooking = false; 
+    _showBooking = false;
   }
 
   public TimeSlot getSelectedSlot()
@@ -67,8 +66,8 @@ class HomeScreen extends AbstractScreen
   public void draw()
   {
     //logo draw, header section, Color Keys
-      super.draw();
-      drawColorKeys();
+    super.draw();
+    drawColorKeys();
 
     //Timeslot grid Display
     for (TimeSlot slot : _timeSlots)
@@ -83,7 +82,7 @@ class HomeScreen extends AbstractScreen
 
       fill(slot.colorCode());
       rectMode(CORNER);
-      rect(cellX, cellY, _CELLWIDTH, _CELLHEIGHT);    
+      rect(cellX, cellY, _CELLWIDTH, _CELLHEIGHT);
       textSize(16);
       fill(0);
 
@@ -92,21 +91,24 @@ class HomeScreen extends AbstractScreen
       {
         fill(0);
         text(slot.getRoomNo(), cellX, cellY + 15 );
-        println(slot.getRoomNo());
-        println(cellX + " " + cellY);
+        //println(slot.getRoomNo());
+        //println(cellX + " " + cellY);
       }
       if (slot.getCourseCode() != null && !slot.getCourseCode().isEmpty())
       {
         text(slot.getCourseCode(), cellX, cellY +30 );
       }
-      
+
       //Draw Unavailable Time notification Segment
       int count = slot.getBookingCount();
       if (count > 0)
       {
-      fill(#F8B6B7);
-      rectMode(CORNER);
-      rect(cellX, cellY + _CELLHEIGHT - (14 * count), _CELLWIDTH, 14 * count); 
+        fill(#F8B6B7);
+        rectMode(CORNER);
+        rect(cellX, cellY + _CELLHEIGHT - (14 * count), _CELLWIDTH, 14 * count);
+        fill(0);
+        textSize(12);
+        text(" " + count + "  Booking", cellX + 2, cellY + _CELLHEIGHT - 4);
       }
     }
     //highlight display in Grid
@@ -168,8 +170,7 @@ class HomeScreen extends AbstractScreen
   {
     int clickCol = (x - _GRID_START_X) / _CELLWIDTH;
     int clickRow = (y - _GRID_START_Y) / _CELLHEIGHT;
-    _setScheduleButton.deselectObject();
-    _submitButton.deselectObject();
+
     if (clickCol >= 0 && clickCol <= 4 && clickRow >= 0 && clickRow <= 9)
     {
       if (_selectedSlot != null)
@@ -188,6 +189,12 @@ class HomeScreen extends AbstractScreen
           _selectedSlot.setIsSelected(true);
           break;
         }
+      }
+    } else {
+      if (_selectedSlot != null && !_submitButton.isClicked(x, y) && !_setScheduleButton.isClicked(x, y))
+      {
+        _selectedSlot.setIsSelected(false);
+        _selectedSlot = null;
       }
     }
     if (_setScheduleButton.isClicked(x, y))
