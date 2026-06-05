@@ -40,7 +40,6 @@ void setup()
   homeScreen = new HomeScreen(timeSlots, timeSlots.get(0).getStaffName(), OFFICE);
   scheduleScreen = new ScheduleScreen(timeSlots, timeSlots.get(0).getStaffName(), OFFICE);
   currentScreen = homeScreen;
-  
 }
 
 
@@ -75,13 +74,13 @@ void draw()
       _loginActive = false;
       homeScreen.resetShowLogin();
       currentScreen = scheduleScreen;
-    
     }
     if (loginScreen.getIsCancelled() == true)
     {
       loginScreen.hide();
       _loginActive = false;
       homeScreen.resetShowLogin();
+      homeScreen.resetButtons();
       currentScreen = homeScreen;
     }
   }
@@ -92,14 +91,28 @@ void draw()
     loginScreen.loginReset();
     homeScreen.resetShowLogin();
   }
-  
+
   if (currentScreen == homeScreen && homeScreen.getShowBooking())
-{
+  {
     bookingScreen = new BookingScreen(cp5, homeScreen.getSelectedSlot(), timeSlots.get(0).getStaffName(), OFFICE);
     homeScreen.resetShowBooking();
     currentScreen = bookingScreen;
-}
-  
+  }
+
+  if (currentScreen == bookingScreen && bookingScreen.getIsCanceled())
+  {
+    homeScreen.resetButtons();
+    currentScreen = homeScreen;
+  }
+  if (currentScreen == bookingScreen && bookingScreen.getBookingComplete())
+  {
+    if (millis() - bookingScreen.getCompletionTime() > 3000)
+    {
+      homeScreen.resetButtons();
+      currentScreen = homeScreen;
+    }
+  }
+
   println("Mouse position: " + mouseX + ", " + mouseY);
 }
 

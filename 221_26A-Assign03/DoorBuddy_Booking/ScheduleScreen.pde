@@ -55,8 +55,7 @@ class ScheduleScreen extends AbstractScreen
       if (slot.getCourseCode() != null && !slot.getCourseCode().isEmpty())
       {
         text(slot.getCourseCode(), cellX, cellY +30 );
-      }
-      
+      }      
       int count = slot.getBookingCount();
       if (count > 0)
       {

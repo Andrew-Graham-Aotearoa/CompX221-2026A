@@ -6,10 +6,14 @@ class BookingScreen extends AbstractScreen
   private String _bookEmail;
   private String _bookCourse;
   private String _bookNote;
-
+  private int _selectedSegment;
+  private String _errorMessageName;
+  private String _errorMessageEmail;
+  private String _errorMessageTime;
   private Button _submitButton;
   private Button _cancelButton;
   private Boolean _bookingComplete;
+  private long _completionTime;
   private Boolean _isCanceled;
 
   public BookingScreen(ControlP5 cp5, TimeSlot timeSlot, String staffName, String office)
@@ -17,6 +21,13 @@ class BookingScreen extends AbstractScreen
     super(staffName, office);
     _timeSlot = timeSlot;
     _cp5 = cp5;
+    _isCanceled = false;
+    _bookingComplete = false;
+    _selectedSegment = -1;
+    _errorMessageName = "";
+    _errorMessageEmail = "";
+    _errorMessageTime = "";
+    _completionTime = 0;
 
     //bookName
     _cp5.addTextfield("bookingName")
@@ -56,7 +67,7 @@ class BookingScreen extends AbstractScreen
       .setText("");
 
     //bookNote
-    _cp5.addTextfield("BookingNote")
+    _cp5.addTextfield("bookingNote")
       .setPosition(580, 460)
       .setSize(400, 40)
       .setLabel("")
@@ -66,12 +77,55 @@ class BookingScreen extends AbstractScreen
       .setFont(createFont("Arial", 12))
       .setColorValue(color(0))
       .setText("");
-    
+
     _cancelButton = new Button(1197, 607, color(248, 182, 183), 115, 50, "CANCEL");
     _submitButton = new Button(1197, 672, color(116, 195, 118), 115, 50, "SUBMIT");
-    
   }
 
+  public void hideInputBoxes()
+  {
+    _cp5.getController("bookingName").hide();
+    _cp5.getController("bookingEmail").hide();
+    _cp5.getController("bookingCourse").hide();
+    _cp5.getController("bookingNote").hide();
+  }
+
+  public String getBookingName()
+  {
+    return _cp5.get(Textfield.class, "bookingName").getText();
+  }
+
+  public String getBookingEmail()
+  {
+    return _cp5.get(Textfield.class, "bookingEmail").getText();
+  }
+
+  public String getBookingCourse()
+  {
+    return _cp5.get(Textfield.class, "bookingCourse").getText();
+  }
+
+  public String getBookingNote()
+  {
+    return _cp5.get(Textfield.class, "bookingNote").getText();
+  }
+
+  public Boolean getIsCanceled()
+  {
+    return _isCanceled;
+  }
+
+  public Boolean getBookingComplete()
+  {
+    return _bookingComplete;
+  }
+
+  public long getCompletionTime()
+  {
+   return _completionTime; 
+  }
+  
+  
   public void draw()
   {
     //logo draw, header section
@@ -82,24 +136,316 @@ class BookingScreen extends AbstractScreen
     fill(0);
     textAlign(RIGHT);
     text("NAME:", 550, 305);
-
     fill(0);
     textAlign(RIGHT);
     text("EMAIL:", 550, 365);
-
     fill(0);
     textAlign(RIGHT);
     text("COURSE:", 550, 425);
-
     fill(0);
     textAlign(RIGHT);
     text("MESSAGE:", 550, 485);
-    
+
+    //Booking Display Information
+    //note: would be nicer to refactor this into a loop
+    String displayLocation;
+    if (_timeSlot == null)
+    {
+      displayLocation = "";
+    } else if (_timeSlot.getRoomNo() != null && !_timeSlot.getRoomNo().isEmpty())
+    {
+      displayLocation = _timeSlot.getRoomNo();
+    } else
+    {
+      displayLocation = _office;
+    }
+
+    if (_timeSlot != null)
+    {
+      textSize(16);
+      textAlign(LEFT);
+      fill(0);
+      //Display week
+      text("Selected Day", 215, 185);
+      stroke(#000000);
+      rectMode(CORNER);
+      fill(#D9D9D9);
+      rect(215, 200, 150, 40);
+      fill(0);
+      text(_timeSlot.getDay(), 265, 225 );
+
+
+      //Display TimeSegment "00"
+      //label
+      text("Selected Time", 215, 275);
+      stroke(#000000);
+      rectMode(CORNER);
+      if (isUnavailable())
+      {
+        fill(#F8B6B7);
+      } else {
+        if (_timeSlot.isSegmentBooked((_timeSlot.getTime()/100) + ":00"))
+        {
+          fill(#F8B6B7);
+        } else {
+          fill(#CDE6C6);
+        }
+      }
+      //time
+      rect(215, 280, 150, 40);
+      //location
+      rect(60, 280, 150, 40);
+      fill(0);
+      //field display
+      text((_timeSlot.getTime() / 100) + ":00", 265, 305);
+
+      //header Location label
+      text("Location", 60, 275);
+
+      //Location "00"
+      stroke(#000000);
+      rectMode(CORNER);
+      fill(0);
+      text(displayLocation, 110, 305 );
+      if (_selectedSegment == 0)
+      {
+        stroke(#74C376);
+        strokeWeight(3);
+        noFill();
+        rect(60, 280, 305, 40);
+        strokeWeight(1);
+        stroke(#000000);
+      }
+
+      //Display TimeSegment "15"
+      stroke(#000000);
+      rectMode(CORNER);
+      if (isUnavailable())
+      {
+        fill(#F8B6B7);
+      } else {
+        if (_timeSlot.isSegmentBooked((_timeSlot.getTime()/100) + ":15"))
+        {
+          fill(#F8B6B7);
+        } else {
+          fill(#CDE6C6);
+        }
+      }
+      rect(215, 325, 150, 40);
+      rect(60, 325, 150, 40);
+      fill(0);
+      //field display
+      text((_timeSlot.getTime() / 100) + ":15", 265, 350);
+      //selected
+      if (_selectedSegment == 1)
+      {
+        stroke(#74C376);
+        strokeWeight(3);
+        noFill();
+        rect(60, 325, 305, 40);
+        strokeWeight(1);
+        stroke(#000000);
+      }
+
+      //Location "15"
+      stroke(#000000);
+      rectMode(CORNER);
+      fill(0);
+      text(displayLocation, 110, 350 );
+
+
+      //Display TimeSegment "30"
+      stroke(#000000);
+      rectMode(CORNER);
+      if (isUnavailable())
+      {
+        fill(#F8B6B7);
+      } else {
+        if (_timeSlot.isSegmentBooked((_timeSlot.getTime()/100) + ":30"))
+        {
+          fill(#F8B6B7);
+        } else {
+          fill(#CDE6C6);
+        }
+      }
+      rect(215, 370, 150, 40);
+      rect(60, 370, 150, 40);
+      fill(0);
+      //field display
+      text((_timeSlot.getTime() / 100) + ":30", 265, 395);
+
+      //Location "30"
+      stroke(#000000);
+      rectMode(CORNER);
+      fill(0);
+      text(displayLocation, 110, 395 );
+      if (_selectedSegment == 2)
+      {
+        stroke(#74C376);
+        strokeWeight(3);
+        noFill();
+        rect(60, 370, 305, 40);
+        strokeWeight(1);
+        stroke(#000000);
+      }
+
+      //Display TimeSegment "45"
+      stroke(#000000);
+      rectMode(CORNER);
+      if (isUnavailable())
+      {
+        fill(#F8B6B7);
+      } else {
+        if (_timeSlot.isSegmentBooked((_timeSlot.getTime()/100) + ":45"))
+        {
+          fill(#F8B6B7);
+        } else {
+          fill(#CDE6C6);
+        }
+      }
+      rect(215, 415, 150, 40);
+      rect(60, 415, 150, 40);
+      fill(0);
+      //field display
+      text((_timeSlot.getTime() / 100) + ":45", 265, 440);
+
+      //Location "45"
+      stroke(#000000);
+      rectMode(CORNER);
+      fill(0);
+      text(displayLocation, 110, 440 );
+      if (_selectedSegment == 3)
+      {
+        stroke(#74C376);
+        strokeWeight(3);
+        noFill();
+        rect(60, 415, 305, 40);
+        strokeWeight(1);
+        stroke(#000000);
+      }
+    }
     _submitButton.drawButton();
     _cancelButton.drawButton();
+
+    textAlign(LEFT);
+    textSize(24);
+    fill(#D35353);
+    text(_errorMessageName, 990, 305);
+    text(_errorMessageEmail, 990, 365);
+    text(_errorMessageTime, 216, 500);
+
+    if (_bookingComplete)
+    {
+      fill(0);
+      textSize(36);
+      text("Submission \n Successful!", 700, 450, 200, 250 );
+    }
   }
 
   public void mousePressed(int x, int y)
   {
+    if (_cancelButton.isClicked(x, y))
+    {
+      _isCanceled = true;
+      hideInputBoxes();
+    }
+
+    if (!isUnavailable())
+    {
+      //Manual Selection of a timeslot
+      //"00"
+      if (x > 60 && x < 365 && y > 280 && y < 320)
+      {
+        if (_selectedSegment == 0)
+        {
+          _selectedSegment = -1;
+        } else {
+          _selectedSegment = 0;
+        }
+      }
+      //"15min"
+      if (x > 60 && x < 365 && y > 325 && y < 365)
+      {
+        if (_selectedSegment == 1)
+        {
+          _selectedSegment = -1;
+        } else {
+          _selectedSegment = 1;
+        }
+      }
+      //"30min"
+      if (x > 60 && x < 365 && y > 370 && y < 410)
+      {
+        if (_selectedSegment == 2)
+        {
+          _selectedSegment = -1;
+        } else {
+          _selectedSegment = 2;
+        }
+      }
+      //"45min"
+      if (x > 60 && x < 365 && y > 415 && y < 455)
+      {
+        if (_selectedSegment == 3)
+        {
+          _selectedSegment = -1;
+        } else {
+          _selectedSegment = 3;
+        }
+      }
+    }
+
+    if (_submitButton.isClicked(x, y))
+    {
+      String name = getBookingName();
+      String email = getBookingEmail();
+      String course = getBookingCourse();
+      String note = getBookingNote();
+      String[] minutes = {":00", ":15", ":30", ":45"};
+      _errorMessageName = "";
+      _errorMessageEmail = "";
+      _errorMessageTime = "";
+
+      if (name.isEmpty())
+      {
+        _errorMessageName = "ENTER A NAME";
+      }
+      if (email.isEmpty())
+      {
+        _errorMessageEmail = "ENTER AN EMAIL";
+      }
+      if (_timeSlot != null && _selectedSegment == -1)
+      {
+        _errorMessageTime = "SELECT A TIME";
+      }
+      if (_errorMessageName.isEmpty()
+        && _errorMessageEmail.isEmpty()
+        && _errorMessageTime.isEmpty())
+      {
+        if (_timeSlot != null)
+        {
+          String segment = (_timeSlot.getTime()/100) + minutes[_selectedSegment];
+          Booking booking =
+            new Booking(name, 0, course, note, 0.0, _timeSlot.getDuration(), email, segment);
+          _timeSlot.addBooking(booking);
+          booking.sendNotification();
+        } else {
+          //message only, no booking time.
+          Booking booking =
+            new Booking(name, 0, course, note, 0.0, 0, email, "");
+          booking.sendNotification();
+        }
+        _submitButton.deselectObject();
+        _bookingComplete = true;
+        hideInputBoxes();
+        _completionTime = millis();
+      }
+    }
+  }
+
+  private Boolean isUnavailable()
+  {
+    if (_timeSlot == null) return false;
+    return _timeSlot.colorCode() == #F8B6B7;
   }
 }

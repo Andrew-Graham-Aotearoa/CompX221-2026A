@@ -57,7 +57,11 @@ class TimeSlot
         row.getString("Note"),
         row.getFloat("BookRef"),
         _duration,
-        "");
+        //email
+        "",
+        //timeSegment
+        "00"
+        );
 
       addBooking(booking);
     }
@@ -161,6 +165,18 @@ class TimeSlot
     return #D9D9D9;
   }
 
+  public Boolean isSegmentBooked(String segment)
+  {
+    for (Booking b : _bookings)
+    {
+      if (b.getTimeSegment().equals(segment))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+  
   public void draw()
   {
   }

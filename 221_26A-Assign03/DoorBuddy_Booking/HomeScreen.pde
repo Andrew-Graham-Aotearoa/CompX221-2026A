@@ -34,6 +34,12 @@ class HomeScreen extends AbstractScreen
    _showLogin = false; 
   }
 
+  public void resetButtons()
+  {
+   _submitButton.deselectObject();
+   _setScheduleButton.deselectObject();  
+  }
+  
   public Boolean getShowBooking()
   {
     return _showBooking;
@@ -94,12 +100,13 @@ class HomeScreen extends AbstractScreen
         text(slot.getCourseCode(), cellX, cellY +30 );
       }
       
+      //Draw Unavailable Time notification Segment
       int count = slot.getBookingCount();
       if (count > 0)
       {
       fill(#F8B6B7);
       rectMode(CORNER);
-      rect(cellX, cellY + _CELLHEIGHT-6,  (_CELLWIDTH/4) * slot.getBookingCount(), 6); 
+      rect(cellX, cellY + _CELLHEIGHT - (14 * count), _CELLWIDTH, 14 * count); 
       }
     }
     //highlight display in Grid
@@ -121,7 +128,7 @@ class HomeScreen extends AbstractScreen
     //Draw buttons
     _setScheduleButton.drawButton();
     _submitButton.drawButton();
-    _cancelButton.drawButton();
+    //_cancelButton.drawButton();
   }
 
 

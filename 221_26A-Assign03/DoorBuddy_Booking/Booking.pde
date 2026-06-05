@@ -7,8 +7,16 @@ class Booking
   private Float _bookRef;
   private int _duration;
   private String _email;
+  private String _timeSegment;
 
-  public Booking(String name, int id, String course, String note, Float bookRef, int duration, String email)
+  public Booking(String name, 
+  int id, 
+  String course, 
+  String note, 
+  Float bookRef, 
+  int duration, 
+  String email,
+  String timeSegment)
   {
     _name = name;
     _id = id;
@@ -17,6 +25,7 @@ class Booking
     _bookRef = bookRef;
     _duration = duration;
     _email = email;
+    _timeSegment = timeSegment;
   }
 
 
@@ -53,6 +62,11 @@ class Booking
   public String getEmail()
   {
    return _email; 
+  }
+  
+  public String getTimeSegment()
+  {
+    return _timeSegment;
   }
 
 //This method would send a notification to an email address.
