@@ -91,8 +91,7 @@ class HomeScreen extends AbstractScreen
       {
         fill(0);
         text(slot.getRoomNo(), cellX, cellY + 15 );
-        //println(slot.getRoomNo());
-        //println(cellX + " " + cellY);
+       
       }
       if (slot.getCourseCode() != null && !slot.getCourseCode().isEmpty())
       {
@@ -130,7 +129,13 @@ class HomeScreen extends AbstractScreen
     //Draw buttons
     _setScheduleButton.drawButton();
     _submitButton.drawButton();
-    //_cancelButton.drawButton();
+    
+    fill(0);
+    textAlign(LEFT);
+    textSize(14);
+    text("Booking: Time + Select",1122, 612 );
+    text("Message: Select only",1122, 633 );
+    
   }
 
 

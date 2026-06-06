@@ -80,7 +80,7 @@ void draw()
       loginScreen.hide();
       _loginActive = false;
       homeScreen.resetShowLogin();
-      //homeScreen.resetButtons();
+      homeScreen.resetButtons();
       currentScreen = homeScreen;
     }
   }
@@ -94,7 +94,6 @@ void draw()
 
   if (currentScreen == homeScreen && homeScreen.getShowBooking())
   {
-    println(homeScreen.getSelectedSlot());
     bookingScreen = new BookingScreen
         (cp5, homeScreen.getSelectedSlot(), timeSlots.get(0).getStaffName(), OFFICE);
     homeScreen.resetShowBooking();
@@ -118,11 +117,13 @@ void draw()
     }
   }
 
-  //println("Mouse position: " + mouseX + ", " + mouseY);
+  println("Mouse position: " + mouseX + ", " + mouseY);
 }
 
 void mousePressed()
-{
+{ 
+  homeScreen.resetButtons();
+  
   if (_loginActive == true)
   {
     loginScreen.mousePressed(mouseX, mouseY);

@@ -44,8 +44,6 @@ class TimeSlot
   }
 
 
-  //add confrirm field if the csv table changes        *****************************
-
   private void loadBookingData(TableRow row, Table table)
   {
     if (row.getString("BookRef") != null && !row.getString("BookRef").isEmpty())
@@ -60,7 +58,9 @@ class TimeSlot
         //email
         "",
         //timeSegment
-        "00"
+        "00",
+        //confrimed
+        row.getString("Confirmed")
         );
 
       addBooking(booking);
@@ -176,8 +176,20 @@ class TimeSlot
     }
     return false;
   }
-  
-  public void draw()
+
+  public String getConfirmedForSegment(String segment)
   {
+    for (Booking b : _bookings)
+    {
+      if (b.getTimeSegment().equals(segment))
+      {
+        return  b.getConfirmed();
+      }
+    }
+    return "";
   }
-}
+  
+    public void draw()
+    {
+    }
+  }
