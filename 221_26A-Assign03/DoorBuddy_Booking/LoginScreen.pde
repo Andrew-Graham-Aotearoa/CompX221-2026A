@@ -7,16 +7,23 @@ class LoginScreen
   private Boolean _isAuthenticated;
   private Boolean _isCancelled;
   private Boolean _authFailed;
+  private Boolean _goToSchedule;
   private Button _confirmButton;
   private Button _cancelButton;
+  private Button _scheduleButton;
+  private Table _table;
 
 
   public LoginScreen
     (ControlP5 cp5,
     String password,
     String currentStaffName,
-    ArrayList<TimeSlot> timeSlots)
+    ArrayList<TimeSlot> timeSlots,
+    Table table)
   {
+    _table = table;
+    _goToSchedule = false;
+
     _cp5 = cp5;
     _password = password;
     _currentStaffName = currentStaffName;
@@ -25,7 +32,8 @@ class LoginScreen
     _isCancelled = false;
     _authFailed = false;
     _confirmButton = new Button(640, 410, color(100, 200, 100), 120, 40, "CONFIRM");
-    _cancelButton = new Button(640, 460, color(200, 100, 100), 120, 40, "CANCEL");
+    _scheduleButton = new Button(640, 460, color(200, 228, 251), 120, 40, "SCHEDULE");
+    _cancelButton = new Button(640, 510, color(200, 100, 100), 120, 40, "CANCEL");
 
     _cp5.addTextfield("username")
       .setPosition(580, 280)
@@ -59,35 +67,48 @@ class LoginScreen
   {
     _cp5.getController("username").hide();
     _cp5.getController("password").hide();
+    _cp5.get(Textfield.class, "username").clear();
+    _cp5.get(Textfield.class, "password").clear();
   }
-  
+
   public void loginReset()
   {
     _isAuthenticated = false;
     _isCancelled = false;
     _authFailed = false;
-  }  
-  
+    _goToSchedule = false;
+  }
+
   public Boolean getIsAuthenticated()
   {
     return _isAuthenticated;
   }
 
+  public Boolean getGoToSchedule()
+  {
+    return _goToSchedule;
+  }
 
 
   public void authenticate()
   {
     String enteredUsername = _cp5.get(Textfield.class, "username").getText();
     String enteredPassword = _cp5.get(Textfield.class, "password").getText();
-    String loadedStaffName = _timeSlots.get(0).getStaffName();
-    
-    if (enteredPassword.equals(_password) && enteredUsername.equals(loadedStaffName))
+
+    boolean validStaff = false;
+    for (TableRow row : _table.rows())
+    {
+      if (row.getString("Staff").equals(enteredUsername))
+      {
+        validStaff = true;
+        break;
+      }
+    }
+
+    if (validStaff && enteredPassword.equals(_password))
     {
       _isAuthenticated = true;
-      _confirmButton.deselectObject();
-    } else
-    {
-      _isAuthenticated = false;
+    } else {
       _authFailed = true;
     }
   }
@@ -99,9 +120,9 @@ class LoginScreen
 
   public Boolean getAuthFailed()
   {
-   return _authFailed; 
+    return _authFailed;
   }
-  
+
   public String getEnteredUsername()
   {
     return _cp5.get(Textfield.class, "username").getText();
@@ -118,6 +139,15 @@ class LoginScreen
     {
       _isCancelled = true;
     }
+    if (_scheduleButton.isClicked(x, y))
+    {
+      authenticate();
+      if(_isAuthenticated)
+      {
+      _goToSchedule = true;
+      }
+      _scheduleButton.deselectObject();
+    }
   }
 
   public void draw()
@@ -132,12 +162,12 @@ class LoginScreen
     text("Password:", 490, 355);
 
     _confirmButton.drawButton();
+    _scheduleButton.drawButton();
     _cancelButton.drawButton();
-    
+
     if (_authFailed == true)
     {
-     text("Authentication Failed, check Username or Password", 660, 226);
-     
+      text("Authentication Failed, check Username or Password", 660, 226);
     }
   }
 }

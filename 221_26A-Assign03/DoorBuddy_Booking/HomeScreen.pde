@@ -4,7 +4,7 @@ class HomeScreen extends AbstractScreen
   private TimeSlot _selectedSlot;
   private Boolean _showLogin;
   private Boolean _showBooking;
-  private Button _setScheduleButton;
+  private Button _staffButton;
   private Button _submitButton;
   //private Button _cancelButton;
 
@@ -15,7 +15,7 @@ class HomeScreen extends AbstractScreen
     _selectedSlot = null;
     _showLogin = false;
     _showBooking = false;
-    _setScheduleButton = new Button(1197, 357, color(200, 228, 251), 115, 50, "SET SCHEDULE");
+    _staffButton = new Button(1197, 357, color(200, 228, 251), 115, 50, "STAFF");
     //_cancelButton = new Button(1197, 607, color(248, 182, 183), 115, 50, "CANCEL");
     _submitButton = new Button(1197, 672, color(116, 195, 118), 115, 50, "SELECT");
 
@@ -36,7 +36,7 @@ class HomeScreen extends AbstractScreen
   public void resetButtons()
   {
     _submitButton.deselectObject();
-    _setScheduleButton.deselectObject();
+    _staffButton.deselectObject();
   }
 
   public Boolean getShowBooking()
@@ -56,12 +56,7 @@ class HomeScreen extends AbstractScreen
 
 
   //Investigate later: set the display week to current week.
-  //public String getDate()
-  //{
-  //  java.util.Calendar cal = java.util.Calendar.getInstance();
-  //  int dayOfWeek = cal.get(java.util.Calendar.DAY_OF_WEEK);
-
-  //}
+ 
 
   public void draw()
   {
@@ -127,7 +122,7 @@ class HomeScreen extends AbstractScreen
       stroke(#000000);
     }
     //Draw buttons
-    _setScheduleButton.drawButton();
+    _staffButton.drawButton();
     _submitButton.drawButton();
     
     fill(0);
@@ -196,13 +191,13 @@ class HomeScreen extends AbstractScreen
         }
       }
     } else {
-      if (_selectedSlot != null && !_submitButton.isClicked(x, y) && !_setScheduleButton.isClicked(x, y))
+      if (_selectedSlot != null && !_submitButton.isClicked(x, y) && !_staffButton.isClicked(x, y))
       {
         _selectedSlot.setIsSelected(false);
         _selectedSlot = null;
       }
     }
-    if (_setScheduleButton.isClicked(x, y))
+    if (_staffButton.isClicked(x, y))
     {
       _showLogin = true;
     }

@@ -34,7 +34,7 @@ void setup()
   //check and load staff
   loadTimeSlotsForStaff(table.getRow(0).getString("Staff"));
 
-  loginScreen = new LoginScreen(cp5, PASSWORD, timeSlots.get(0).getStaffName(), timeSlots);
+  loginScreen = new LoginScreen(cp5, PASSWORD, timeSlots.get(0).getStaffName(), timeSlots, table);
   loginScreen.hide();
 
   homeScreen = new HomeScreen(timeSlots, timeSlots.get(0).getStaffName(), OFFICE);
@@ -56,7 +56,6 @@ void draw()
     loginScreen.draw();
 
     if (loginScreen.getIsAuthenticated() == true)
-
     {
       String role;
       String enteredUserName = loginScreen.getEnteredUsername();
@@ -69,11 +68,20 @@ void draw()
         role = "staff";
       }
       loadTimeSlotsForStaff(loginScreen.getEnteredUsername());
+      homeScreen.setStaffName(loginScreen.getEnteredUsername());
+      scheduleScreen.setStaffName(loginScreen.getEnteredUsername());
       staff = new Staff(enteredUserName, role, OFFICE);
+
       loginScreen.hide();
       _loginActive = false;
       homeScreen.resetShowLogin();
-      currentScreen = scheduleScreen;
+
+      if (loginScreen.getGoToSchedule() == true)
+      {
+        currentScreen = scheduleScreen;
+      } else {
+        currentScreen = homeScreen;
+      }
     }
     if (loginScreen.getIsCancelled() == true)
     {
@@ -95,7 +103,7 @@ void draw()
   if (currentScreen == homeScreen && homeScreen.getShowBooking())
   {
     bookingScreen = new BookingScreen
-        (cp5, homeScreen.getSelectedSlot(), timeSlots.get(0).getStaffName(), OFFICE);
+      (cp5, homeScreen.getSelectedSlot(), timeSlots.get(0).getStaffName(), OFFICE);
     homeScreen.resetShowBooking();
     homeScreen.resetButtons();
     currentScreen = bookingScreen;
@@ -121,9 +129,9 @@ void draw()
 }
 
 void mousePressed()
-{ 
+{
   homeScreen.resetButtons();
-  
+
   if (_loginActive == true)
   {
     loginScreen.mousePressed(mouseX, mouseY);

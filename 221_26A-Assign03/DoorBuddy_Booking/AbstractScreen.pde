@@ -24,6 +24,11 @@ abstract class AbstractScreen
     
   }
 
+  public void setStaffName(String staffName)
+  {
+    _staffName = staffName;
+  }
+
   public void draw()
   {
     //Logotype
