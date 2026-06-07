@@ -34,7 +34,7 @@ void setup()
   //check and load staff
   loadTimeSlotsForStaff(table.getRow(0).getString("Staff"));
 
-  loginScreen = new LoginScreen(cp5, PASSWORD, timeSlots.get(0).getStaffName(), timeSlots, table);
+  loginScreen = new LoginScreen(cp5, PASSWORD, timeSlots.get(0).getStaffName(), table);
   loginScreen.hide();
 
   homeScreen = new HomeScreen(timeSlots, timeSlots.get(0).getStaffName(), OFFICE);
@@ -67,7 +67,12 @@ void draw()
       {
         role = "staff";
       }
-      loadTimeSlotsForStaff(loginScreen.getEnteredUsername());
+
+      if (!loginScreen.getEnteredUsername().equals(timeSlots.get(0).getStaffName()))
+      {
+        loadTimeSlotsForStaff(loginScreen.getEnteredUsername());
+      }
+
       homeScreen.setStaffName(loginScreen.getEnteredUsername());
       scheduleScreen.setStaffName(loginScreen.getEnteredUsername());
       staff = new Staff(enteredUserName, role, OFFICE);
@@ -125,7 +130,12 @@ void draw()
     }
   }
 
-  println("Mouse position: " + mouseX + ", " + mouseY);
+  if (currentScreen == scheduleScreen && scheduleScreen.getShowHome())
+  {
+    currentScreen = homeScreen;
+  }
+
+  //println("Mouse position: " + mouseX + ", " + mouseY);
 }
 
 void mousePressed()

@@ -61,6 +61,9 @@ class Button
     _isSelected = false;
   }
   
-  
+   public Boolean getIsSelected()
+  {
+   return _isSelected; 
+  }
   
 }

@@ -83,6 +83,40 @@ abstract class AbstractScreen
     }
   }
   
+   public int dayToColumn(String day)
+  {
+    if (day.equals("Mon"))
+    {
+      return 0;
+    }
+    if (day.equals("Tue"))
+    {
+      return 1;
+    }
+    if (day.equals("Wed"))
+    {
+      return 2;
+    }
+    if (day.equals("Thu"))
+    {
+      return 3;
+    }
+    if (day.equals("Fri"))
+    {
+      return 4;
+    } else
+      return -1;
+  }
+
+  public int timeToRow(int time)
+  {
+    int row = (time - 800) / 100;
+    if (row < 0 || row > 9) return -1;
+    return row;
+  }
+  
+  
+  
    protected void drawColorKeys()
    {
       fill(#CDE6C6);

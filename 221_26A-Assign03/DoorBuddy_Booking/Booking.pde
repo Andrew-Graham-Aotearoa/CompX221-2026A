@@ -10,15 +10,15 @@ class Booking
   private String _timeSegment;
   private String _confirmed;
 
-  public Booking(String name, 
-  int id, 
-  String course, 
-  String note, 
-  Float bookRef, 
-  int duration, 
-  String email,
-  String timeSegment,
-  String confirmed)
+  public Booking(String name,
+    int id,
+    String course,
+    String note,
+    Float bookRef,
+    int duration,
+    String email,
+    String timeSegment,
+    String confirmed)
   {
     _name = name;
     _id = id;
@@ -39,15 +39,15 @@ class Booking
 
   public String getCourse()
   {
-    return _course;  
+    return _course;
   }
 
   public String getNote()
   {
     return _note;
   }
-  
-    public Float getBookRef()
+
+  public Float getBookRef()
   {
     return _bookRef;
   }
@@ -56,31 +56,51 @@ class Booking
   {
     return _duration;
   }
-  
+
   public int getId()
   {
-   return _id; 
+    return _id;
   }
-  
+
   public String getEmail()
   {
-   return _email; 
+    return _email;
   }
-  
+
   public String getTimeSegment()
   {
     return _timeSegment;
   }
-  
+
   public String getConfirmed()
   {
-   return _confirmed; 
+    return _confirmed;
   }
 
-//This method would send a notification to an email address.
-  public void sendNotification()
+  //This method would send a notification to an email address.
+  //public void sendNotification()
+  //{
+  //  println(_bookRef+" "+"Notification sent to:"+" "+_name+" "+_email);
+  //}
+
+  public String toString()
   {
-    println(_bookRef+" "+"Notification sent to:"+" "+_name+" "+_email);
+    return "Appointment Booking Made: "
+      + _name + " | " + _email + " | " + _timeSegment +" | " + _note;
   }
 
+  public void sendNotification(boolean accepted, String staffName, String day)
+  {
+    if (accepted)
+    {
+      println(staffName + " Has approved your Booking: " + day + " " + toString());
+    } else {
+      println(staffName + " is unavailable for your Booking: " + day + " " + toString());
+    }
+  }
+
+  public void sendNotification(String staffName, String day)
+  {
+    println("New booking request for " + staffName + ": " + day + " " + toString());
+  }
 }

@@ -16,7 +16,6 @@ class TimeSlot
     _duration = -1;
     _isSelected = false;
     _bookings = new ArrayList<Booking>();
-
     loadSlotData(row, table);
     loadBookingData(row, table);
   }
@@ -93,6 +92,11 @@ class TimeSlot
     return _titleCode;
   }
 
+  public void setTitleCode(String titleCode)
+  {
+  _titleCode = titleCode;  
+  }
+  
   public String getCourseCode()
   {
     return _courseCode;
@@ -131,6 +135,11 @@ class TimeSlot
   public int getBookingCount()
   {
     return _bookings.size();
+  }
+  
+  public ArrayList<Booking> getBookings()
+  {
+    return _bookings;
   }
 
   public color colorCode()

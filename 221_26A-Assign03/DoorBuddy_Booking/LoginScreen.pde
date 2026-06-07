@@ -3,7 +3,6 @@ class LoginScreen
   private ControlP5 _cp5;
   private String _currentStaffName;
   private String _password;
-  private ArrayList<TimeSlot> _timeSlots;
   private Boolean _isAuthenticated;
   private Boolean _isCancelled;
   private Boolean _authFailed;
@@ -18,7 +17,6 @@ class LoginScreen
     (ControlP5 cp5,
     String password,
     String currentStaffName,
-    ArrayList<TimeSlot> timeSlots,
     Table table)
   {
     _table = table;
@@ -27,7 +25,6 @@ class LoginScreen
     _cp5 = cp5;
     _password = password;
     _currentStaffName = currentStaffName;
-    _timeSlots = timeSlots;
     _isAuthenticated = false;
     _isCancelled = false;
     _authFailed = false;
