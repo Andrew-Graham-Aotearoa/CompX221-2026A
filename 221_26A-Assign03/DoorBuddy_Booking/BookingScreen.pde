@@ -487,7 +487,7 @@ class BookingScreen extends AbstractScreen
           //message only, no booking time.
           Booking booking =
             new Booking(name, 0, course, note, 0.0, 0, email, "", "");
-          booking.sendNotification(_staffName, _timeSlot.getDay());
+          booking.sendNotification(_staffName, "");
         }
         //_submitButton.deselectObject();
         _bookingComplete = true;

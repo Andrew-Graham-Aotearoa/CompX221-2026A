@@ -4,7 +4,7 @@ ControlP5 cp5;
 
 final String PASSWORD = "password123";
 //Loads CSV
-final String DEFAULT_STAFF = "2026_Assign3_Sample_Data_1.csv";
+final String DEFAULT_STAFF = "2026_Assign3_Sample_Data_2.csv";
 
 
 AbstractScreen currentScreen;
@@ -132,6 +132,7 @@ void draw()
 
   if (currentScreen == scheduleScreen && scheduleScreen.getShowHome())
   {
+    scheduleScreen.resetShowHome();
     currentScreen = homeScreen;
   }
 

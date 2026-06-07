@@ -2,7 +2,6 @@ abstract class AbstractScreen
 {
   protected ArrayList<String> _staticLabels;
   protected ArrayList<PVector> _labelPositions;
-  protected ArrayList<Button> _buttons;
   protected String _staffName;
   protected String _office;
   protected PImage _logo;

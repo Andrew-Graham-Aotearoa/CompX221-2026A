@@ -28,6 +28,11 @@ class ScheduleScreen extends AbstractScreen
   {
     return  _showHome;
   }
+  
+  public void resetShowHome()
+  {
+   _showHome = false; 
+  }
 
   public void draw()
   {
