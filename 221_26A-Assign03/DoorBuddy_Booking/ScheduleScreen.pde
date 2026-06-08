@@ -39,6 +39,11 @@ class ScheduleScreen extends AbstractScreen
     //logo draw, header section
     super.draw();
 
+    fill(0);
+
+    //Button Instructions
+    text("Confirm Booking: \n Timeslot + \n Availability Type", 1135,100);
+
     //Timeslot grid Display
     for (TimeSlot slot : _timeSlots)
     {
@@ -143,7 +148,11 @@ class ScheduleScreen extends AbstractScreen
 
       for (Booking b : _selectedSlot.getBookings())
       {
-        if (_availableButton.getIsSelected()) b.sendNotification(true, _staffName, _selectedSlot.getDay());
+        if (_availableButton.getIsSelected())
+        {
+        b.setConfirmed("Y");
+        b.sendNotification(true, _staffName, _selectedSlot.getDay());
+        }
         if (_unavailableButton.getIsSelected()) b.sendNotification(false, _staffName, _selectedSlot.getDay());
       }
       if (_availableButton.getIsSelected())

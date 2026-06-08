@@ -77,11 +77,12 @@ class Booking
     return _confirmed;
   }
 
-  //This method would send a notification to an email address.
-  //public void sendNotification()
-  //{
-  //  println(_bookRef+" "+"Notification sent to:"+" "+_name+" "+_email);
-  //}
+  public void setConfirmed(String confirmed)
+  {
+    _confirmed = confirmed;
+  }
+
+
 
   public String toString()
   {

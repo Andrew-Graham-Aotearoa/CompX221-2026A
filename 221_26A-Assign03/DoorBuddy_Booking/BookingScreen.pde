@@ -388,7 +388,7 @@ class BookingScreen extends AbstractScreen
     {
       fill(0);
       textSize(36);
-      text("Submission \n Successful!", 700, 450, 200, 250 );
+      text("Pending \n Confirmation", 700, 450, 220, 255 );
     }
   }
 
